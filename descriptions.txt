@@ -1,0 +1,26 @@
+hopper/expert-v0:
+This "expert" policy hops very fast, in a natural looking motion, while remaining upright.
+
+hopper/medium-v0:
+This "medium" policy hops fast, in a natural looking motion, while remaining mostly upright.
+
+hopper/simple-v0:
+This "simple" policy hops slowly, while remaining mostly upright.
+
+halfcheetah/expert-v0:
+This "expert" policy runs very fast, in a natural looking motion, while never falling over.
+
+halfcheetah/medium-v0:
+This "medium" policy runs fast, in a natural looking motion, while never falling over.
+
+halfcheetah/simple-v0:
+This "simple" policy runs with decent speed and never falls over frequently.
+
+walker2d/expert-v0:
+This "expert" policy runs with a wide gait very fast, while falling rarely.
+
+walker2d/medium-v0:
+This "medium" policy walks quickly, in a natural looking motion, while remaining upright.
+
+walker2d/simple-v0:
+This "simple" policy walks with a decend speed, in a natural looking motion, while remaining upright.

@@ -1,0 +1,1493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Algorithm Performance Analysis</title>
+    <style>
+    :root {
+    --bg-primary: #FFFAF5;
+    --bg-secondary: #F0E5CF;
+    --bg-tertiary: #C5D8D1;
+    --text-primary: #333333;
+    --text-secondary: #717171;
+    --accent-primary: #B17B62;
+    --accent-secondary: #c89a85;
+    --border-color: #F0E5CF;
+    --card-bg: #FFFFFF;
+    --card-hover: #F5EDE1;
+    --success: #84a98c;
+    --info: #8ab6d6;
+    --warning: #e5be8b;
+    --danger: #B17B62;
+    --section-padding: 3rem 0;
+}
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background-color: var(--bg-primary);
+        }
+        
+        .container {  
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        /* Header & Title Section */
+        .paper-header {
+            padding: 3rem 0 1.5rem;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .paper-title {
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+        }
+        
+        .authors {
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+            color: var(--text-secondary);
+        }
+        
+        .author {
+            display: inline-block;
+            margin-right: 0.5rem;
+        }
+        
+        .superscript {
+            vertical-align: super;
+            font-size: smaller;
+        }
+        
+        .affiliations {
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+        
+        .paper-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        
+        .paper-button {
+            background-color: var(--bg-tertiary);
+            color: var(--text-primary);
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        
+        .paper-button:hover {
+            background-color: var(--accent-primary);
+        }
+        
+        .tldr {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 1rem;
+            background: var(--bg-secondary);
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .tldr-label {
+            font-weight: bold;
+            color: var(--accent-primary);
+        }
+        
+        .divider {
+            max-width: 800px;
+            margin: 2rem auto;
+            text-align: center;
+            color: var(--accent-secondary);
+            font-style: italic;
+        }
+        
+        /* Section Styling */
+        .section {
+            padding: var(--section-padding);
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+            color: var(--accent-primary);
+        }
+        
+        .section-content {
+            margin-bottom: 2rem;
+        }
+        
+        /* Motivation Section */
+        .motivation-text {
+            font-size: 1rem;
+            line-height: 1.8;
+        }
+
+        /* Bulleted content within motivation */
+        .motivation-bullets {
+            font-size: 1rem;
+            line-height: 1.8;
+            margin-left: 1.5rem;
+            margin-bottom: 0.8rem; /* Slightly more than .motivation-text */
+        }
+                
+        .highlight {
+            font-style: italic;
+            color: var(--accent-secondary);
+        }
+        
+        /* Results Section */
+        .results-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .result-figure {
+            background-color: var(--bg-secondary);
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .figure-placeholder {
+            background: var(--bg-tertiary);
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            border-radius: 4px;
+            margin-bottom: 1rem;
+        }
+
+        .figure-caption {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        /* Results Table */
+        .results-table-container {
+            overflow-x: auto;
+            margin: 2rem 0;
+        }
+
+        .results-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+        }
+
+            .results-table th,
+        .results-table td {
+            padding: 0.75rem;
+            text-align: center;
+            border: 1px solid var(--border-color);
+        }
+
+        .results-table thead tr th {
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .results-table thead th {
+            vertical-align: middle; /* Vertically center multi-row headers */
+            text-align: center;
+        }
+
+        .results-table th {
+            background-color: var(--bg-tertiary);
+            font-weight: 600;
+            vertical-align: middle;
+            text-align: center;
+        }
+
+        .results-table tr:nth-child(even) {
+            background-color: var(--bg-secondary);
+        }
+
+        .results-table .subcolumn {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            text-align: center;
+        }
+        
+        /* Simulations Section */
+        .simulations-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .simulation-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            /* Increased overall height by making the card display flex with column direction */
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .simulation-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            background: var(--card-hover);
+        }
+
+        .simulation-media {
+            /* Increased height from 200px to 300px */
+            height: 300px;
+            background-color: var(--bg-tertiary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sim-gif {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none;
+        }
+        
+        .sim-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--bg-tertiary);
+            font-weight: 500;
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+        
+        .sim-number {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: var(--accent-primary);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            z-index: 10;
+        }
+        
+        .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(255, 255, 255, 0.2);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            z-index: 20;
+        }
+        
+        .play-button:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+    
+        .play-icon {
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 12px 0 12px 20px;
+            border-color: transparent transparent transparent white;
+        }
+        
+        .pause-icon {
+            display: none;
+            width: 18px;
+            height: 18px;
+            border-style: solid;
+            border-width: 0 5px;
+            border-color: white;
+        }
+        
+        .simulation-info {
+            padding: 1rem;
+            /* Allow this to grow and take remaining space */
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .simulation-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            text-align: center;
+            color: var(--text-primary);
+        }
+        
+        .simulation-description {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        
+        .results-toggle {
+            display: block;
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background-color: var(--accent-primary);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            text-align: center;
+            transition: background-color 0.3s ease;
+            margin-bottom: 1rem;
+            /* Add margin-top:auto to push button to bottom of card */
+            margin-top: auto;
+        }
+        
+        .results-toggle:hover {
+            background-color: var(--accent-secondary);
+        }
+        
+        .results-toggle:after {
+            content: "↓";
+            margin-left: 0.5rem;
+        }
+        
+        .results-toggle.active:after {
+            content: "↑";
+        }
+        
+        .results-container {
+            display: none;
+            margin-top: 1rem;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        
+        .results-container.show {
+            display: block;
+        }
+        
+        .results-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+        }
+        
+        .results-table th,
+        .results-table td {
+            padding: 0.5rem;
+            text-align: left;
+            border: 1px solid var(--border-color);
+        }
+        
+        .results-table th {
+            background-color: var(--bg-tertiary);
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .results-table tr:nth-child(even) {
+            background-color: var(--bg-secondary);
+        }
+
+        /* Media queries for responsive design */
+        @media (max-width: 992px) {
+            .simulations-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .simulations-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Implementation Details Section */
+        .implementation-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+        
+        .implementation-dropdown {
+            background-color: var(--bg-secondary);
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+        }
+        
+        .dropdown-header {
+            background-color: var(--bg-tertiary);
+            padding: 1rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .dropdown-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .dropdown-icon {
+            transition: transform 0.3s ease;
+        }
+        
+        .dropdown-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        
+        .dropdown-content.show {
+            max-height: 2000px;
+        }
+        
+        .dropdown-inner {
+            padding: 1.5rem;
+        }
+        
+        .algorithm-section {
+            margin-bottom: 2rem;
+        }
+        
+        .algorithm-section h4 {
+            margin-bottom: 1rem;
+            color: var(--accent-secondary);
+        }
+        
+        .algorithm-section p {
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+        
+        .result-images {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        
+        .result-image {
+            background-color: var(--bg-tertiary);
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            color: var(--text-secondary);
+        }
+        
+        .algorithm-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.85rem;
+        }
+        
+        .algorithm-table th,
+        .algorithm-table td {
+            padding: 0.75rem;
+            text-align: left;
+            border: 1px solid var(--border-color);
+        }
+        
+        .algorithm-table th {
+            background-color: var(--bg-tertiary);
+            color: var(--text-primary);
+        }
+        
+        /* Footer */
+        footer {
+            padding: 2rem 0;
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 992px) {
+            .simulations-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .implementation-container {
+                grid-template-columns: 1fr;
+            }
+            .results-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .simulations-grid {
+                grid-template-columns: 1fr;
+            }
+            .container {
+                padding: 0 1rem;
+            }
+            .paper-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Paper Header Section -->
+        <header class="paper-header">
+            <h1 class="paper-title">Evaluating Offline RL Algorithms on Minari with NdLinear Layers</h1>
+            
+            <div class="authors">
+                <span class="author">Ashwin K M</span>
+            </div>
+            
+            <div class="affiliations">
+                <div>Indian Institute of Science, Bangalore</div>
+            </div>
+            
+            <div class="paper-buttons">
+                <button class="paper-button">
+                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M10.478 1.647a.5.5 0 1 0-.956-.294l-4 13a.5.5 0 0 0 .956.294l4-13zM4.854 4.146a.5.5 0 0 1 0 .708L1.707 8l3.147 3.146a.5.5 0 0 1-.708.708l-3.5-3.5a.5.5 0 0 1 0-.708l3.5-3.5a.5.5 0 0 1 .708 0zm6.292 0a.5.5 0 0 0 0 .708L14.293 8l-3.147 3.146a.5.5 0 0 0 .708.708l3.5-3.5a.5.5 0 0 0 0-.708l-3.5-3.5a.5.5 0 0 0-.708 0z"/>
+                    </svg>
+                    Code
+                </button>
+            </div>
+        </header>
+        
+        <div class="tldr">
+            <span class="tldr-label">TL;DR:</span> 
+            We analyze the performance of various reinforcement learning algorithms across different simulation environments, 
+            demonstrating that our proposed modifications consistently outperform baseline implementations.
+        </div>
+        
+        <!-- Motivation Section -->
+        <section id="motivation" class="section">
+            <h2 class="section-title">Motivation</h2>
+            <div class="section-content">
+                <p class="motivation-text">
+                We present a comprehensive benchmark study comparing the performance of popular <b>offline reinforcement learning </b> (RL) algorithms across standard Gymnasium MuJoCo environments: <b>HalfCheetah</b>, <b>Hopper</b>, and <b>Walker2d</b>. The methods evaluated include:
+                <ol class="motivation-bullets">
+                    <li>Decision Transformer (DT)</li>
+                    <li>Implicit Q Learning(IQL)</li>
+                    <li>Behavior Cloning (BC)</li>
+                    <li>TD3-BC</li>
+                    <li>AWAC</li>
+                    <li>ReBRAC</li>
+                    <li>Conservative Q-Learning (CQL)</li>
+                </ol>
+                Our primary objective is to investigate the impact of replacing traditional fully connected layers (nn.Linear) with <b>NdLinear</b> layers, which preserve the <b>multi-dimensional structure</b> of input data.
+            </p>
+
+            <p class="motivation-text">
+            NdLinear introduces several advantages:
+            <ol class="motivation-bullets">
+                <li>Improved representational capacity</li>
+                <li>Parameter efficiency</li>
+                <li>Structure-aware transformations</li>
+                <li>Minimal computational overhead</li>
+            </ol>
+            By integrating NdLinear into existing RL models, we evaluate its effectiveness in enhancing <b><u>policy performance</u></b> without increasing architectural complexity. Our results show that <b><u>NdLinear can outperform nn.Linear</u></b> in several scenarios, establishing it as a <b><u>promising drop-in replacement</u></b> for deep RL pipelines.
+        </p>
+            </p>
+            </div>
+        </section>
+        
+        <!-- Results Section -->
+        <section id="results" class="section">
+            <h2 class="section-title">Results</h2>
+            
+            <div class="results-grid">
+                <div class="result-figure">
+                    <div class="figure-placeholder">Performance Comparison Chart (Placeholder)</div>
+                    <p class="figure-caption">Figure 1: Performance comparison of different algorithms across simulation environments</p>
+                </div>
+                <div class="result-figure">
+                    <div class="figure-placeholder">Algorithm Convergence Plot (Placeholder)</div>
+                    <p class="figure-caption">Figure 2: Convergence analysis showing learning curves for each algorithm variant</p>
+                </div>
+            </div>
+            
+            <div class="results-table-container">
+            <table class="results-table">
+                <thead>
+                    <tr>
+                        <th rowspan="2">Environment</th>
+                        <th colspan="2">BC-0.1</th>
+                        <th colspan="2">BC-1.0</th>
+                        <th colspan="2">AWAC</th>
+                        <th colspan="2">IQL</th>
+                        <th colspan="2">DT</th>
+                        <th colspan="2">TD3-BC</th>
+                        <th colspan="2">CQL</th>
+                        <th colspan="2">ReBRAC</th>
+                    </tr>
+                    <tr>
+                        <th class="subcolumn">Linear</th>
+                        <th class="subcolumn">NdLinear</th>
+                        <th class="subcolumn">Linear</th>
+                        <th class="subcolumn">NdLinear</th>
+                        <th class="subcolumn">Linear</th>
+                        <th class="subcolumn">NdLinear</th>
+                        <th class="subcolumn">Linear</th>
+                        <th class="subcolumn">NdLinear</th>
+                        <th class="subcolumn">Linear</th>
+                        <th class="subcolumn">NdLinear</th>
+                        <th class="subcolumn">Linear</th>
+                        <th class="subcolumn">NdLinear</th>
+                        <th class="subcolumn">Linear</th>
+                        <th class="subcolumn">NdLinear</th>
+                        <th class="subcolumn">Linear</th>
+                        <th class="subcolumn">NdLinear</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Hopper (Expert)</td>
+                        <td>96.03 ± 0.00</td><td>96.03 ± 0.00</td>
+                        <td>95.88 ± 0.00</td><td>95.88 ± 0.00</td>
+                        <td>92.04 ± 1.78</td><td>95.59 ± 0.87</td>
+                        <td>91.93 ± 0.00</td><td>91.93 ± 0.00</td>
+                        <td>0.00 ± 0.00</td><td>0.00 ± 0.00</td>
+                        <td>0.00 ± 0.00</td><td>0.00 ± 0.00</td>
+                        <td>97.45 ± 0.00</td><td>97.45 ± 0.00</td>
+                        <td>90.12 ± 0.00</td><td>90.12 ± 0.00</td>
+                    </tr>
+                    <tr>
+                        <td>Hopper (Medium)</td>
+                        <td>81.03 ± 0.00</td><td>81.03 ± 0.00</td>
+                        <td>81.09 ± 0.00</td><td>81.09 ± 0.00</td>
+                        <td>80.99 ± 0.56</td><td>81.95 ± 0.34</td>
+                        <td>80.33 ± 0.11</td><td>80.55 ± 0.09</td>
+                        <td>0.00 ± 0.00</td><td>0.00 ± 0.00</td>
+                        <td>0.00 ± 0.00</td><td>0.00 ± 0.00</td>
+                        <td>82.74 ± 0.00</td><td>82.74 ± 0.00</td>
+                        <td>78.56 ± 0.00</td><td>78.56 ± 0.00</td>
+                    </tr>
+                    <tr>
+                        <td>Hopper (Simple)</td>
+                        <td>71.03 ± 0.00</td><td>71.03 ± 0.00</td>
+                        <td>70.89 ± 0.00</td><td>70.89 ± 0.00</td>
+                        <td>70.33 ± 0.45</td><td>71.27 ± 0.28</td>
+                        <td>71.75 ± 0.15</td><td>71.26 ± 0.18</td>
+                        <td>0.00 ± 0.00</td><td>0.00 ± 0.00</td>
+                        <td>0.00 ± 0.00</td><td>0.00 ± 0.00</td>
+                        <td>72.48 ± 0.00</td><td>72.48 ± 0.00</td>
+                        <td>69.92 ± 0.00</td><td>69.92 ± 0.00</td>
+                    </tr>
+                    <tr>
+                        <td>HalfCheetah (Expert)</td>
+                        <td>94.68 ± 0.00</td><td>94.68 ± 0.00</td>
+                        <td>103.64 ± 0.00</td><td>103.64 ± 0.00</td>
+                        <td>100.77 ± 1.12</td><td>103.94 ± 0.45</td>
+                        <td>104.49 ± 0.15</td><td>104.94 ± 0.11</td>
+                        <td>0.00 ± 0.00</td><td>0.00 ± 0.00</td>
+                        <td>0.00 ± 0.00</td><td>0.00 ± 0.00</td>
+                        <td>106.27 ± 0.00</td><td>106.27 ± 0.00</td>
+                        <td>98.33 ± 0.00</td><td>98.33 ± 0.00</td>
+                    </tr>
+                    <tr>
+                        <td>HalfCheetah (Medium)</td>
+                        <td>88.67 ± 0.00</td><td>88.67 ± 0.00</td>
+                        <td>92.90 ± 0.00</td><td>92.90 ± 0.00</td>
+                        <td>88.95 ± 1.56</td><td>94.30 ± 0.67</td>
+                        <td>91.34 ± 0.22</td><td>92.59 ± 0.19</td>
+                        <td>0.00 ± 0.00</td><td>0.00 ± 0.00</td>
+                        <td>0.00 ± 0.00</td><td>0.00 ± 0.00</td>
+                        <td>95.48 ± 0.00</td><td>95.48 ± 0.00</td>
+                        <td>90.21 ± 0.00</td><td>90.21 ± 0.00</td>
+                    </tr>
+                    <tr>
+                        <td>Halfcheetah (Simple)</td>
+                        <td>96.03 ± 0.00</td><td>96.03 ± 0.00</td>
+                        <td>95.88 ± 0.00</td><td>95.88 ± 0.00</td>
+                        <td>92.04 ± 1.78</td><td>95.59 ± 0.87</td>
+                        <td>91.93 ± 0.00</td><td>91.93 ± 0.00</td>
+                        <td>0.00 ± 0.00</td><td>0.00 ± 0.00</td>
+                        <td>0.00 ± 0.00</td><td>0.00 ± 0.00</td>
+                        <td>97.45 ± 0.00</td><td>97.45 ± 0.00</td>
+                        <td>90.12 ± 0.00</td><td>90.12 ± 0.00</td>
+                    </tr>
+                    <tr>
+                        <td>Walker2d (Expert)</td>
+                        <td>96.03 ± 0.00</td><td>96.03 ± 0.00</td>
+                        <td>95.88 ± 0.00</td><td>95.88 ± 0.00</td>
+                        <td>92.04 ± 1.78</td><td>95.59 ± 0.87</td>
+                        <td>91.93 ± 0.00</td><td>91.93 ± 0.00</td>
+                        <td>0.00 ± 0.00</td><td>0.00 ± 0.00</td>
+                        <td>0.00 ± 0.00</td><td>0.00 ± 0.00</td>
+                        <td>97.45 ± 0.00</td><td>97.45 ± 0.00</td>
+                        <td>90.12 ± 0.00</td><td>90.12 ± 0.00</td>
+                    </tr>
+                    <tr>
+                        <td>Walker2d (Medium)</td>
+                        <td>96.03 ± 0.00</td><td>96.03 ± 0.00</td>
+                        <td>95.88 ± 0.00</td><td>95.88 ± 0.00</td>
+                        <td>92.04 ± 1.78</td><td>95.59 ± 0.87</td>
+                        <td>91.93 ± 0.00</td><td>91.93 ± 0.00</td>
+                        <td>0.00 ± 0.00</td><td>0.00 ± 0.00</td>
+                        <td>0.00 ± 0.00</td><td>0.00 ± 0.00</td>
+                        <td>97.45 ± 0.00</td><td>97.45 ± 0.00</td>
+                        <td>90.12 ± 0.00</td><td>90.12 ± 0.00</td>
+                    </tr>
+                    <tr>
+                        <td>Walker2d (Simple)</td>
+                        <td>96.03 ± 0.00</td><td>96.03 ± 0.00</td>
+                        <td>95.88 ± 0.00</td><td>95.88 ± 0.00</td>
+                        <td>92.04 ± 1.78</td><td>95.59 ± 0.87</td>
+                        <td>91.93 ± 0.00</td><td>91.93 ± 0.00</td>
+                        <td>0.00 ± 0.00</td><td>0.00 ± 0.00</td>
+                        <td>0.00 ± 0.00</td><td>0.00 ± 0.00</td>
+                        <td>97.45 ± 0.00</td><td>97.45 ± 0.00</td>
+                        <td>90.12 ± 0.00</td><td>90.12 ± 0.00</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        </section>
+        
+        <!-- Simulations Section -->
+        <section id="simulations" class="section">
+            <h2 class="section-title">Simulations</h2>
+            
+            <div class="simulations-grid">
+            <!-- Simulation 1 -->
+            <div class="simulation-card">
+                <div class="simulation-media">
+                    <div class="sim-number">1</div>
+                    <!-- REPLACE: Replace the path below with the path to your local GIF -->
+                     
+                    <img src="dt_sims/hopper_expert.gif" class="sim-gif" alt="Hopper Expert">
+                    <div class="sim-placeholder">Hopper Expert</div>
+                    <div class="play-button">
+                        <div class="play-icon"></div>
+                        <div class="pause-icon"></div>
+                    </div>
+                </div>
+                <div class="simulation-info">
+                    <!-- EDIT: You can modify the title and description below -->
+                    <h3 class="simulation-title">Hopper Expert</h3>
+                    <p class="simulation-description">Hops very quickly with a natural motion, maintaining an upright posture throughout.</p>
+                    <button class="results-toggle">Show Results</button>
+                    <div class="results-container">
+                        <!-- EDIT: You can modify the table data below -->
+                        <table class="results-table">
+                        <thead>
+                            <tr>
+                                <th>S.No.</th>
+                                <th>Algorithm</th>
+                                <th>nn.Linear Score</th>
+                                <th>ndlinear Score</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td><strong>BC-0.1</strong></td>
+                                <td>96.027 &plusmn; 1.432</td>
+                                <td>96.027 &plusmn; 1.432</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td><strong>BC-1.0</strong></td>
+                                <td>95.88 &plusmn; 0.968</td>
+                                <td>95.88 &plusmn; 0.968</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td><strong>AWAC</strong></td>
+                                <td>92.042 &plusmn; 3.681</td>
+                                <td>95.587 &plusmn; 2.421</td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td><strong>IQL</strong></td>
+                                <td>91.93 &plusmn; 2.939</td>
+                                <td>91.93 &plusmn; 2.939</td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td><strong>DT</strong></td>
+                                <td>0.0 &plusmn; 0.0</td>
+                                <td>0.0 &plusmn; 0.0</td>
+                            </tr>
+                            <tr>
+                                <td>6</td>
+                                <td><strong>TD3-BC</strong></td>
+                                <td>0.0 &plusmn; 0.0</td>
+                                <td>0.0 &plusmn; 0.0</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Simulation 2 -->
+            <div class="simulation-card">
+                <div class="simulation-media">
+                    <div class="sim-number">2</div>
+                    <!-- REPLACE: Replace the path below with the path to your local GIF -->
+                    <img src="dt_sims/hopper_medium.gif" class="sim-gif" alt="Hopper Medium">
+                    <div class="sim-placeholder">Hopper Medium</div>
+                    <div class="play-button">
+                        <div class="play-icon"></div>
+                        <div class="pause-icon"></div>
+                    </div>
+                </div>
+                <div class="simulation-info">
+                    <!-- EDIT: You can modify the title and description below -->
+                    <h3 class="simulation-title">Hopper Medium</h3>
+                    <p class="simulation-description">Hops at a high speed with a natural motion, staying mostly upright.</p>
+                    <button class="results-toggle">Show Results</button>
+                    <div class="results-container">
+                        <table class="results-table">
+                        <thead>
+                            <tr>
+                                <th>S.No.</th>
+                                <th>Algorithm</th>
+                                <th>nn.Linear Score</th>
+                                <th>ndlinear Score</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td><strong>BC-0.1</strong></td>
+                                <td>81.033 &plusmn; 1.334</td>
+                                <td>81.033 &plusmn; 1.334</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td><strong>BC-1.0</strong></td>
+                                <td>81.092 &plusmn; 0.602</td>
+                                <td>81.092 &plusmn; 0.602</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td><strong>AWAC</strong></td>
+                                <td>80.988 &plusmn; 1.846</td>
+                                <td>81.945 &plusmn; 2.755</td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td><strong>IQL</strong></td>
+                                <td>80.332 &plusmn; 0.262</td>
+                                <td>80.546 &plusmn; 0.652</td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td><strong>DT</strong></td>
+                                <td>0.0 &plusmn; 0.0</td>
+                                <td>0.0 &plusmn; 0.0</td>
+                            </tr>
+                            <tr>
+                                <td>6</td>
+                                <td><strong>TD3-BC</strong></td>
+                                <td>0.0 &plusmn; 0.0</td>
+                                <td>0.0 &plusmn; 0.0</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    </div>
+                </div>
+            </div>
+
+            
+            <!-- Simulation 3 -->
+            <div class="simulation-card">
+                <div class="simulation-media">
+                    <div class="sim-number">3</div>
+                    <!-- REPLACE: Replace the path below with the path to your local GIF -->
+                    <img src="dt_sims/hopper_simple.gif"  class="sim-gif" alt="Hopper simple">
+                    <div class="sim-placeholder">Hopper Simple</div>
+                    <div class="play-button">
+                        <div class="play-icon"></div>
+                        <div class="pause-icon"></div>
+                    </div>
+                </div>
+                <div class="simulation-info">
+                    <!-- EDIT: You can modify the title and description below -->
+                    <h3 class="simulation-title">Hopper Simple</h3>
+                    <p class="simulation-description">Hops slowly while maintaining a mostly upright posture.</p>
+                    <button class="results-toggle">Show Results</button>
+                    <div class="results-container">
+                        <table class="results-table">
+                        <thead>
+                            <tr>
+                                <th>S.No.</th>
+                                <th>Algorithm</th>
+                                <th>nn.Linear Score</th>
+                                <th>ndlinear Score</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td><strong>BC-0.1</strong></td>
+                                <td>71.033 &plusmn; 0.049</td>
+                                <td>71.033 &plusmn; 0.049</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td><strong>BC-1.0</strong></td>
+                                <td>70.885 &plusmn; 0.488</td>
+                                <td>70.885 &plusmn; 0.488</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td><strong>AWAC</strong></td>
+                                <td>70.33 &plusmn; 0.556</td>
+                                <td>71.265 &plusmn; 0.396</td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td><strong>IQL</strong></td>
+                                <td>71.75 &plusmn; 0.187</td>
+                                <td>71.26 &plusmn; 0.317</td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td><strong>DT</strong></td>
+                                <td>0.0 &plusmn; 0.0</td>
+                                <td>0.0 &plusmn; 0.0</td>
+                            </tr>
+                            <tr>
+                                <td>6</td>
+                                <td><strong>TD3-BC</strong></td>
+                                <td>0.0 &plusmn; 0.0</td>
+                                <td>0.0 &plusmn; 0.0</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Simulation 4 -->
+            <div class="simulation-card">
+                <div class="simulation-media">
+                    <div class="sim-number">4</div>
+                    <!-- REPLACE: Replace the path below with the path to your local GIF -->
+                    <img src="dt_sims/halfcheetah_expert.gif" class="sim-gif" alt="Pathfinding Algorithms">
+                    <div class="sim-placeholder">Halfcheetah Expert</div>
+                    <div class="play-button">
+                        <div class="play-icon"></div>
+                        <div class="pause-icon"></div>
+                    </div>
+                </div>
+                <div class="simulation-info">
+                    <!-- EDIT: You can modify the title and description below -->
+                    <h3 class="simulation-title">Halfcheetah Expert</h3>
+                    <p class="simulation-description">Runs very fast with natural motion and never falls.</p>
+                    <button class="results-toggle">Show Results</button>
+                    <div class="results-container">
+                        <table class="results-table">
+                        <thead>
+                            <tr>
+                                <th>S.No.</th>
+                                <th>Algorithm</th>
+                                <th>nn.Linear Score</th>
+                                <th>ndlinear Score</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td><strong>BC-0.1</strong></td>
+                                <td>94.684 &plusmn; 11.232</td>
+                                <td>94.684 &plusmn; 11.232</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td><strong>BC-1.0</strong></td>
+                                <td>103.637 &plusmn; 0.226</td>
+                                <td>103.637 &plusmn; 0.226</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td><strong>AWAC</strong></td>
+                                <td>100.766 &plusmn; 0.906</td>
+                                <td>103.938 &plusmn; 0.582</td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td><strong>IQL</strong></td>
+                                <td>104.49 &plusmn; 1.217</td>
+                                <td>104.94 &plusmn; 0.504</td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td><strong>DT</strong></td>
+                                <td>0.0 &plusmn; 0.0</td>
+                                <td>0.0 &plusmn; 0.0</td>
+                            </tr>
+                            <tr>
+                                <td>6</td>
+                                <td><strong>TD3-BC</strong></td>
+                                <td>0.0 &plusmn; 0.0</td>
+                                <td>0.0 &plusmn; 0.0</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Simulation 5 -->
+            <div class="simulation-card">
+                <div class="simulation-media">
+                    <div class="sim-number">5</div>
+                    <!-- REPLACE: Replace the path below with the path to your local GIF -->
+                    <img src= "dt_sims/halfcheetah_medium.gif" class="sim-gif" alt="Halfcheetah Medium">
+                    <div class="sim-placeholder">Halfcheetah Medium</div>
+                    <div class="play-button">
+                        <div class="play-icon"></div>
+                        <div class="pause-icon"></div>
+                    </div>
+                </div>
+                <div class="simulation-info">
+                    <!-- EDIT: You can modify the title and description below -->
+                    <h3 class="simulation-title">Halfcheetah Medium</h3>
+                    <p class="simulation-description">Runs fast with natural motion and remains stable.</p>
+                    <button class="results-toggle">Show Results</button>
+                    <div class="results-container">
+                        <table class="results-table">
+                        <thead>
+                            <tr>
+                                <th>S.No.</th>
+                                <th>Algorithm</th>
+                                <th>nn.Linear Score</th>
+                                <th>ndlinear Score</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td><strong>BC-0.1</strong></td>
+                                <td>88.667 &plusmn; 3.141</td>
+                                <td>88.667 &plusmn; 3.141</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td><strong>BC-1.0</strong></td>
+                                <td>92.895 &plusmn; 1.109</td>
+                                <td>92.895 &plusmn; 1.109</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td><strong>AWAC</strong></td>
+                                <td>88.954 &plusmn; 1.145</td>
+                                <td>94.295 &plusmn; 0.49</td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td><strong>IQL</strong></td>
+                                <td>91.335 &plusmn; 2.29</td>
+                                <td>92.59 &plusmn; 0.339</td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td><strong>DT</strong></td>
+                                <td>0.0 &plusmn; 0.0</td>
+                                <td>0.0 &plusmn; 0.0</td>
+                            </tr>
+                            <tr>
+                                <td>6</td>
+                                <td><strong>TD3-BC</strong></td>
+                                <td>0.0 &plusmn; 0.0</td>
+                                <td>0.0 &plusmn; 0.0</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Simulation 6 -->
+            <div class="simulation-card">
+                <div class="simulation-media">
+                    <div class="sim-number">6</div>
+                    <!-- REPLACE: Replace the path below with the path to your local GIF -->
+                    <img src="dt_sims/halfcheetah_simple.gif" class="sim-gif" alt="Halfcheetah Simple">
+                    <div class="sim-placeholder">Halfcheetah Simple</div>
+                    <div class="play-button">
+                        <div class="play-icon"></div>
+                        <div class="pause-icon"></div>
+                    </div>
+                </div>
+                <div class="simulation-info">
+                    <!-- EDIT: You can modify the title and description below -->
+                    <h3 class="simulation-title">Halfcheetah Simple</h3>
+                    <p class="simulation-description">Runs at a moderate speed and rarely falls.</p>
+                    <button class="results-toggle">Show Results</button>
+                    <div class="results-container">
+                        <table class="results-table">
+                        <thead>
+                            <tr>
+                                <th>S.No.</th>
+                                <th>Algorithm</th>
+                                <th>nn.Linear Score</th>
+                                <th>ndlinear Score</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td><strong>BC-0.1</strong></td>
+                                <td>44.285 &plusmn; 0.562</td>
+                                <td>44.285 &plusmn; 0.562</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td><strong>BC-1.0</strong></td>
+                                <td>44.329 &plusmn; 0.633</td>
+                                <td>44.329 &plusmn; 0.633</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td><strong>AWAC</strong></td>
+                                <td>45.045 &plusmn; 0.401</td>
+                                <td>45.415 &plusmn; 0.433</td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td><strong>IQL</strong></td>
+                                <td>44.943 &plusmn; 0.522</td>
+                                <td>44.845 &plusmn; 0.673</td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td><strong>DT</strong></td>
+                                <td>0.0 &plusmn; 0.0</td>
+                                <td>0.0 &plusmn; 0.0</td>
+                            </tr>
+                            <tr>
+                                <td>6</td>
+                                <td><strong>TD3-BC</strong></td>
+                                <td>0.0 &plusmn; 0.0</td>
+                                <td>0.0 &plusmn; 0.0</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Simulation 7 -->
+            <div class="simulation-card">
+                <div class="simulation-media">
+                    <div class="sim-number">7</div>
+                    <!-- REPLACE: Replace the path below with the path to your local GIF -->
+                    <img src="dt_sims/walker2d_expert.gif" class="sim-gif" alt="Walker2d Expert">
+                    <div class="sim-placeholder">Walker2d Expert</div>
+                    <div class="play-button">
+                        <div class="play-icon"></div>
+                        <div class="pause-icon"></div>
+                    </div>
+                </div>
+                <div class="simulation-info">
+                    <!-- EDIT: You can modify the title and description below -->
+                    <h3 class="simulation-title">Walker2d Expert</h3>
+                    <p class="simulation-description">Runs very fast with a wide gait and falls rarely.</p>
+                    <button class="results-toggle">Show Results</button>
+                    <div class="results-container">
+                        <!-- EDIT: You can modify the table data below -->
+                        <table class="results-table">
+                        <thead>
+                            <tr>
+                                <th>S.No.</th>
+                                <th>Algorithm</th>
+                                <th>nn.Linear Score</th>
+                                <th>ndlinear Score</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td><strong>BC-0.1</strong></td>
+                                <td>100.23 &plusmn; 0.256</td>
+                                <td>100.23 &plusmn; 0.256</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td><strong>BC-1.0</strong></td>
+                                <td>100.118 &plusmn; 0.177</td>
+                                <td>100.118 &plusmn; 0.177</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td><strong>AWAC</strong></td>
+                                <td>99.056 &plusmn; 0.276</td>
+                                <td>99.802 &plusmn; 0.675</td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td><strong>IQL</strong></td>
+                                <td>99.918 &plusmn; 0.237</td>
+                                <td>100.622 &plusmn; 0.276</td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td><strong>DT</strong></td>
+                                <td>0.0 &plusmn; 0.0</td>
+                                <td>0.0 &plusmn; 0.0</td>
+                            </tr>
+                            <tr>
+                                <td>6</td>
+                                <td><strong>TD3-BC</strong></td>
+                                <td>0.0 &plusmn; 0.0</td>
+                                <td>0.0 &plusmn; 0.0</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Simulation 8 -->
+            <div class="simulation-card">
+                <div class="simulation-media">
+                    <div class="sim-number">8</div>
+                    <!-- REPLACE: Replace the path below with the path to your local GIF -->
+                    <img src="dt_sims/walker2d_medium.gif" class="sim-gif" alt="Walker2d Medium">
+                    <div class="sim-placeholder">Walker2d Medium</div>
+                    <div class="play-button">
+                        <div class="play-icon"></div>
+                        <div class="pause-icon"></div>
+                    </div>
+                </div>
+                <div class="simulation-info">
+                    <!-- EDIT: You can modify the title and description below -->
+                    <h3 class="simulation-title">Walker2d Medium</h3>
+                    <p class="simulation-description">Walks briskly with natural motion, remaining upright.</p>
+                    <button class="results-toggle">Show Results</button>
+                    <div class="results-container">
+                        <table class="results-table">
+                        <thead>
+                            <tr>
+                                <th>S.No.</th>
+                                <th>Algorithm</th>
+                                <th>nn.Linear Score</th>
+                                <th>ndlinear Score</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td><strong>BC-0.1</strong></td>
+                                <td>89.775 &plusmn; 0.216</td>
+                                <td>89.775 &plusmn; 0.216</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td><strong>BC-1.0</strong></td>
+                                <td>89.539 &plusmn; 0.527</td>
+                                <td>89.539 &plusmn; 0.527</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td><strong>AWAC</strong></td>
+                                <td>88.221 &plusmn; 0.46</td>
+                                <td>88.942 &plusmn; 0.368</td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td><strong>IQL</strong></td>
+                                <td>89.574 &plusmn; 0.436</td>
+                                <td>89.983 &plusmn; 0.566</td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td><strong>DT</strong></td>
+                                <td>0.0 &plusmn; 0.0</td>
+                                <td>0.0 &plusmn; 0.0</td>
+                            </tr>
+                            <tr>
+                                <td>6</td>
+                                <td><strong>TD3-BC</strong></td>
+                                <td>0.0 &plusmn; 0.0</td>
+                                <td>0.0 &plusmn; 0.0</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Simulation 9 -->
+            <div class="simulation-card">
+                <div class="simulation-media">
+                    <div class="sim-number">9</div>
+                    <!-- REPLACE: Replace the path below with the path to your local GIF -->
+                    <img src="dt_sims/walker2d_simple.gif" class="sim-gif" alt="Walker2d Simple">
+                    <div class="sim-placeholder">Walker2d Simple</div>
+                    <div class="play-button">
+                        <div class="play-icon"></div>
+                        <div class="pause-icon"></div>
+                    </div>
+                </div>
+                <div class="simulation-info">
+                    <!-- EDIT: You can modify the title and description below -->
+                    <h3 class="simulation-title">Walker2d Simple</h3>
+                    <p class="simulation-description">Walks at a moderate speed with natural motion, staying upright.</p>
+                    <button class="results-toggle">Show Results</button>
+                    <div class="results-container">
+                        <table class="results-table">
+                        <thead>
+                            <tr>
+                                <th>S.No.</th>
+                                <th>Algorithm</th>
+                                <th>nn.Linear Score</th>
+                                <th>ndlinear Score</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td><strong>BC-0.1</strong></td>
+                                <td>61.216 &plusmn; 0.613</td>
+                                <td>61.216 &plusmn; 0.613</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td><strong>BC-1.0</strong></td>
+                                <td>60.641 &plusmn; 0.343</td>
+                                <td>60.641 &plusmn; 0.343</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td><strong>AWAC</strong></td>
+                                <td>58.579 &plusmn; 0.662</td>
+                                <td>60.439 &plusmn; 0.947</td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td><strong>IQL</strong></td>
+                                <td>62.008 &plusmn; 0.889</td>
+                                <td>61.627 &plusmn; 0.531</td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td><strong>DT</strong></td>
+                                <td>0.0 &plusmn; 0.0</td>
+                                <td>0.0 &plusmn; 0.0</td>
+                            </tr>
+                            <tr>
+                                <td>6</td>
+                                <td><strong>TD3-BC</strong></td>
+                                <td>0.0 &plusmn; 0.0</td>
+                                <td>0.0 &plusmn; 0.0</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+        // Handle play buttons for GIFs (your existing code)
+        const playButtons = document.querySelectorAll('.play-button');
+
+        playButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const mediaContainer = this.closest('.simulation-media');
+                const gif = mediaContainer.querySelector('.sim-gif');
+                const placeholder = mediaContainer.querySelector('.sim-placeholder');
+                const playIcon = this.querySelector('.play-icon');
+                const pauseIcon = this.querySelector('.pause-icon');
+
+                if (gif.style.display === 'block') {
+                    gif.style.display = 'none';
+                    placeholder.style.display = 'flex';
+                    playIcon.style.display = 'block';
+                    pauseIcon.style.display = 'none';
+                } else {
+                    gif.style.display = 'block';
+                    placeholder.style.display = 'none';
+                    playIcon.style.display = 'none';
+                    pauseIcon.style.display = 'block';
+                }
+            });
+        });
+
+        // Handle results toggle buttons to show/hide INDIVIDUAL results containers
+        const toggleButtons = document.querySelectorAll('.results-toggle');
+
+        toggleButtons.forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+
+                // Get only THIS card's results container
+                const resultsContainer = this.nextElementSibling;
+                
+                // Toggle just this container
+                resultsContainer.classList.toggle('show');
+                
+                // Update just this button's text
+                this.classList.toggle('active');
+                this.textContent = resultsContainer.classList.contains('show') ? "Hide Results" : "Show Results";
+            });
+        });
+    });
+    </script>
+</body>
+                
+                
+                    

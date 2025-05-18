@@ -1,0 +1,9 @@
+evaluation/target_3600_return_mean: mean=3569.2402, std=130.0778
+evaluation_normalised/target_3600_return_mean: mean=79.7249, std=-6.6713
+evaluation/target_3600_return_top10_mean: mean=3640.5384, std=12.7777
+evaluation_normalised/target_3600_return_top10_mean: mean=81.5160, std=-9.6180
+evaluation/target_1800_return_mean: mean=3433.1167, std=376.6805
+evaluation_normalised/target_1800_return_mean: mean=76.3053, std=-0.4763
+evaluation/target_1800_return_top10_mean: mean=3637.1121, std=17.9571
+evaluation_normalised/target_1800_return_top10_mean: mean=81.4299, std=-9.4879
+training/train_loss_mean: mean=0.0448, std=0.0028

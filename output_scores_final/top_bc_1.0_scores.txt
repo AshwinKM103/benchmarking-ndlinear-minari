@@ -1,0 +1,118 @@
+BC_1.0-halfcheetah-simple.log
+<td>44.329 &plusmn; 0.633</td>
+<td>44.287 &plusmn; 0.516</td>
+<td>44.285 &plusmn; 0.347</td>
+<td>44.209 &plusmn; 0.525</td>
+<td>44.204 &plusmn; 0.379</td>
+
+BC_1.0-halfcheetah-medium--ndlinear.log
+<td>92.895 &plusmn; 1.109</td>
+<td>92.545 &plusmn; 0.252</td>
+<td>92.397 &plusmn; 0.533</td>
+<td>92.378 &plusmn; 0.498</td>
+<td>92.279 &plusmn; 0.408</td>
+
+BC_1.0-hopper-medium.log
+<td>81.092 &plusmn; 0.602</td>
+<td>81.085 &plusmn; 1.188</td>
+<td>80.861 &plusmn; 0.5</td>
+<td>80.825 &plusmn; 0.686</td>
+<td>80.639 &plusmn; 0.355</td>
+
+BC_1.0-hopper-simple.log
+<td>70.885 &plusmn; 0.488</td>
+<td>70.705 &plusmn; 0.246</td>
+<td>70.643 &plusmn; 0.534</td>
+<td>70.621 &plusmn; 0.506</td>
+<td>70.54 &plusmn; 0.277</td>
+
+BC_1.0-hopper-medium--ndlinear.log
+<td>81.092 &plusmn; 0.602</td>
+<td>81.085 &plusmn; 1.188</td>
+<td>80.861 &plusmn; 0.5</td>
+<td>80.825 &plusmn; 0.686</td>
+<td>80.639 &plusmn; 0.355</td>
+
+BC_1.0-walker2d-expert.log
+<td>100.118 &plusmn; 0.177</td>
+<td>100.035 &plusmn; 0.26</td>
+<td>99.966 &plusmn; 0.248</td>
+<td>99.957 &plusmn; 0.352</td>
+<td>99.956 &plusmn; 0.179</td>
+
+BC_1.0-hopper-expert.log
+<td>95.88 &plusmn; 0.968</td>
+<td>95.666 &plusmn; 0.798</td>
+<td>95.408 &plusmn; 1.655</td>
+<td>95.258 &plusmn; 1.358</td>
+<td>95.183 &plusmn; 1.482</td>
+
+BC_1.0-hopper-expert--ndlinear.log
+<td>95.88 &plusmn; 0.968</td>
+<td>95.666 &plusmn; 0.798</td>
+<td>95.408 &plusmn; 1.655</td>
+<td>95.258 &plusmn; 1.358</td>
+<td>95.183 &plusmn; 1.482</td>
+
+BC_1.0-walker2d-expert--ndlinear.log
+<td>100.118 &plusmn; 0.177</td>
+<td>100.035 &plusmn; 0.26</td>
+<td>99.966 &plusmn; 0.248</td>
+<td>99.957 &plusmn; 0.352</td>
+<td>99.956 &plusmn; 0.179</td>
+
+BC_1.0-walker2d-medium.log
+<td>89.539 &plusmn; 0.527</td>
+<td>89.492 &plusmn; 0.234</td>
+<td>89.472 &plusmn; 0.354</td>
+<td>89.36 &plusmn; 0.338</td>
+<td>89.174 &plusmn; 0.327</td>
+
+BC_1.0-halfcheetah-expert.log
+<td>103.637 &plusmn; 0.226</td>
+<td>103.471 &plusmn; 0.248</td>
+<td>103.461 &plusmn; 0.186</td>
+<td>103.416 &plusmn; 0.175</td>
+<td>103.412 &plusmn; 0.398</td>
+
+BC_1.0-walker2d-simple.log
+<td>60.641 &plusmn; 0.343</td>
+<td>60.594 &plusmn; 0.819</td>
+<td>60.473 &plusmn; 0.971</td>
+<td>60.453 &plusmn; 0.46</td>
+<td>60.404 &plusmn; 0.569</td>
+
+BC_1.0-walker2d-simple--ndlinear.log
+<td>60.641 &plusmn; 0.343</td>
+<td>60.594 &plusmn; 0.819</td>
+<td>60.473 &plusmn; 0.971</td>
+<td>60.453 &plusmn; 0.46</td>
+<td>60.404 &plusmn; 0.569</td>
+
+BC_1.0-hopper-simple--ndlinear.log
+<td>70.885 &plusmn; 0.488</td>
+<td>70.705 &plusmn; 0.246</td>
+<td>70.643 &plusmn; 0.534</td>
+<td>70.621 &plusmn; 0.506</td>
+<td>70.54 &plusmn; 0.277</td>
+
+BC_1.0-halfcheetah-expert--ndlinear.log
+<td>103.637 &plusmn; 0.226</td>
+<td>103.471 &plusmn; 0.248</td>
+<td>103.461 &plusmn; 0.186</td>
+<td>103.416 &plusmn; 0.175</td>
+<td>103.412 &plusmn; 0.398</td>
+
+BC_1.0-walker2d-medium--ndlinear.log
+<td>89.539 &plusmn; 0.527</td>
+<td>89.492 &plusmn; 0.234</td>
+<td>89.472 &plusmn; 0.354</td>
+<td>89.36 &plusmn; 0.338</td>
+<td>89.174 &plusmn; 0.327</td>
+
+BC_1.0-halfcheetah-simple--ndlinear.log
+<td>44.329 &plusmn; 0.633</td>
+<td>44.287 &plusmn; 0.516</td>
+<td>44.285 &plusmn; 0.347</td>
+<td>44.209 &plusmn; 0.525</td>
+<td>44.204 &plusmn; 0.379</td>

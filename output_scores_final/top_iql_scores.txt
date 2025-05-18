@@ -1,0 +1,125 @@
+IQL-halfcheetah-medium.log
+<td>91.335 &plusmn; 2.29</td>
+<td>90.818 &plusmn; 1.875</td>
+<td>87.392 &plusmn; 4.234</td>
+<td>85.566 &plusmn; 2.062</td>
+<td>83.952 &plusmn; 1.57</td>
+
+IQL_Minari-Ndlinear-halfcheetah-simple--ndlinear.log
+<td>44.845 &plusmn; 0.673</td>
+<td>44.767 &plusmn; 0.393</td>
+<td>44.754 &plusmn; 0.397</td>
+<td>44.744 &plusmn; 0.412</td>
+<td>44.725 &plusmn; 0.53</td>
+
+IQL_Minari-Ndlinear-halfcheetah-expert--ndlinear.log
+<td>104.94 &plusmn; 0.504</td>
+<td>104.804 &plusmn; 0.465</td>
+<td>104.556 &plusmn; 0.333</td>
+<td>104.279 &plusmn; 0.356</td>
+<td>104.264 &plusmn; 1.548</td>
+
+IQL_Minari-Ndlinear-walker2d-medium--ndlinear.log
+<td>89.983 &plusmn; 0.566</td>
+<td>89.813 &plusmn; 0.432</td>
+<td>89.79 &plusmn; 0.475</td>
+<td>89.625 &plusmn; 0.616</td>
+<td>89.591 &plusmn; 0.643</td>
+
+IQL_Minari-Ndlinear-walker2d-expert--ndlinear.log
+<td>100.622 &plusmn; 0.276</td>
+<td>100.622 &plusmn; 0.269</td>
+<td>100.537 &plusmn; 0.156</td>
+<td>100.536 &plusmn; 0.277</td>
+<td>100.507 &plusmn; 0.242</td>
+
+IQL-hopper-medium.log
+<td>80.332 &plusmn; 0.262</td>
+<td>80.324 &plusmn; 0.598</td>
+<td>80.145 &plusmn; 0.786</td>
+<td>80.126 &plusmn; 0.465</td>
+<td>80.054 &plusmn; 0.365</td>
+
+IQL_Minari-Ndlinear-hopper-simple--ndlinear.log
+<td>71.26 &plusmn; 0.317</td>
+<td>71.054 &plusmn; 0.452</td>
+<td>71.053 &plusmn; 0.285</td>
+<td>70.984 &plusmn; 0.362</td>
+<td>70.964 &plusmn; 0.321</td>
+
+IQL-walker2d-medium.log
+<td>89.574 &plusmn; 0.436</td>
+<td>89.19 &plusmn; 0.331</td>
+<td>89.171 &plusmn; 0.831</td>
+<td>89.059 &plusmn; 0.645</td>
+<td>89.059 &plusmn; 0.205</td>
+
+IQL_Minari-Ndlinear-hopper-medium--ndlinear.log
+<td>80.546 &plusmn; 0.652</td>
+<td>80.334 &plusmn; 0.983</td>
+<td>80.238 &plusmn; 1.212</td>
+<td>80.175 &plusmn; 1.211</td>
+<td>80.023 &plusmn; 0.544</td>
+
+IQL-walker2d-expert.log
+<td>99.918 &plusmn; 0.237</td>
+<td>99.882 &plusmn; 0.25</td>
+<td>99.783 &plusmn; 0.692</td>
+<td>99.765 &plusmn; 0.95</td>
+<td>99.705 &plusmn; 0.536</td>
+
+IQL_Minari-Ndlinear-walker2d-simple--ndlinear.log
+<td>61.627 &plusmn; 0.531</td>
+<td>61.548 &plusmn; 2.097</td>
+<td>61.264 &plusmn; 0.475</td>
+<td>61.152 &plusmn; 0.984</td>
+<td>61.152 &plusmn; 0.834</td>
+
+IQL-hopper-expert.log
+<td>91.93 &plusmn; 2.939</td>
+<td>91.845 &plusmn; 1.752</td>
+<td>90.564 &plusmn; 0.946</td>
+<td>90.146 &plusmn; 5.658</td>
+<td>90.136 &plusmn; 0.725</td>
+
+IQL-halfcheetah-simple.log
+<td>44.943 &plusmn; 0.522</td>
+<td>44.907 &plusmn; 0.364</td>
+<td>44.881 &plusmn; 0.438</td>
+<td>44.877 &plusmn; 0.33</td>
+<td>44.874 &plusmn; 0.332</td>
+
+IQL-halfcheetah-expert.log
+<td>104.49 &plusmn; 1.217</td>
+<td>104.176 &plusmn; 1.038</td>
+<td>104.136 &plusmn; 1.748</td>
+<td>103.868 &plusmn; 0.94</td>
+<td>103.767 &plusmn; 2.753</td>
+
+IQL-hopper-simple.log
+<td>71.75 &plusmn; 0.187</td>
+<td>71.742 &plusmn; 0.983</td>
+<td>70.936 &plusmn; 2.902</td>
+<td>69.699 &plusmn; 6.692</td>
+<td>69.492 &plusmn; 3.204</td>
+
+IQL_Minari-Ndlinear-hopper-expert--ndlinear.log
+<td>91.93 &plusmn; 2.939</td>
+<td>91.845 &plusmn; 1.752</td>
+<td>90.564 &plusmn; 0.946</td>
+<td>90.146 &plusmn; 5.658</td>
+<td>90.136 &plusmn; 0.725</td>
+
+IQL_Minari-Ndlinear-halfcheetah-medium--ndlinear.log
+<td>92.59 &plusmn; 0.339</td>
+<td>92.047 &plusmn; 0.476</td>
+<td>91.979 &plusmn; 0.767</td>
+<td>91.479 &plusmn; 0.751</td>
+<td>91.096 &plusmn; 1.228</td>
+
+IQL-walker2d-simple.log
+<td>62.008 &plusmn; 0.889</td>
+<td>62.0 &plusmn; 0.809</td>
+<td>61.996 &plusmn; 1.153</td>
+<td>61.916 &plusmn; 0.786</td>
+<td>61.886 &plusmn; 0.96</td>

@@ -1,0 +1,10 @@
+# Ignore data pkl files
+env_setup/mujoco_halfcheetah_expert-v0.pkl
+env_setup/mujoco_halfcheetah_medium-v0.pkl
+env_setup/mujoco_halfcheetah_simple-v0.pkl
+env_setup/mujoco_hopper_expert-v0.pkl
+env_setup/mujoco_hopper_medium-v0.pkl
+env_setup/mujoco_hopper_simple-v0.pkl
+env_setup/mujoco_walker2d_expert-v0.pkl
+env_setup/mujoco_walker2d_medium-v0.pkl
+env_setup/mujoco_walker2d_simple-v0.pkl

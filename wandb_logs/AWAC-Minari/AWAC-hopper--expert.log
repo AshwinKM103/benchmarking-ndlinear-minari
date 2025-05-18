@@ -1,0 +1,302 @@
+[34m[1mwandb[0m: [33mWARNING[0m Calling wandb.run.save without any arguments is deprecated.Changes to attributes are automatically persisted.
+ 15%|▏| 149990/1000000 [25:18<2:31:12,                                        
+
+Time steps: 50000
+Episode reward: 31.410664918585038
+Episode reward: 1080.3582061426694
+Episode reward: 30.2058221538736
+Episode reward: 33.54131359085522
+Episode reward: 31.72228905407189
+Episode reward: 31.859918131451337
+Episode reward: 793.3205274820087
+Episode reward: 28.615080075808137
+Episode reward: 31.189642608196078
+Episode reward: 29.987733182171937
+---------------------------------------
+Evaluation over 10 episodes: mean: -4.608, std: 9.243
+---------------------------------------
+
+Time steps: 100000
+Episode reward: 32.973727036094935
+Episode reward: 2869.753399903259
+Episode reward: 33.34422900468288
+Episode reward: 2560.6220428902548
+Episode reward: 33.312450566439026
+Episode reward: 35.03817737928061
+Episode reward: 2959.053678509462
+Episode reward: 31.84374994589018
+Episode reward: 32.69148525633728
+Episode reward: 33.08814355365937
+---------------------------------------
+Evaluation over 10 episodes: mean: 11.720, std: 31.898
+---------------------------------------
+
+Time steps: 150000
+Episode reward: 4178.447416141327
+Episode reward: 4173.422832609772
+Episode reward: 4212.772707678696
+Episode reward: 4130.64858888488
+Episode reward: 4175.00053169296
+Episode reward: 4158.694456453403
+Episode reward: 4154.793643969708
+Episode reward: 4009.513661599012
+Episode reward: 2349.8592711859587
+Episode reward: 4175.420471485262
+---------------------------------------
+Evaluation over 10 episodes: mean: 89.839, std: 13.644
+---------------------------------------
+
+Time steps: 200000
+Episode reward: 4037.7211589220187
+Episode reward: 4191.694230720679
+Episode reward: 3989.908831251391
+Episode reward: 4068.4408599842845
+Episode reward: 3977.107128816964
+Episode reward: 4204.998126198258
+Episode reward: 3690.593387975994
+Episode reward: 4155.347913760477
+Episode reward: 4086.212963609785
+Episode reward: 4193.446152123643
+---------------------------------------
+Evaluation over 10 episodes: mean: 92.042, std: 3.681
+---------------------------------------
+
+Time steps: 250000
+Episode reward: 3997.019250175481
+Episode reward: 4153.007124528352
+Episode reward: 3984.7720468347575
+Episode reward: 4138.814671814477
+Episode reward: 4147.299092056316
+Episode reward: 3935.7276526246897
+Episode reward: 2917.010903191605
+Episode reward: 4167.689964305137
+Episode reward: 3953.557399248226
+Episode reward: 3947.9316887046525
+---------------------------------------
+Evaluation over 10 episodes: mean: 88.895, std: 8.815
+---------------------------------------
+
+Time steps: 300000
+Episode reward: 4166.8906151463625
+Episode reward: 4226.676023456076
+Episode reward: 3209.941646230597
+Episode reward: 2760.3924586349267
+Episode reward: 4207.206075281932
+Episode reward: 4321.310775945169
+Episode reward: 2084.712111884704
+Episode reward: 2018.9469453182953
+Episode reward: 4259.943289208518
+Episode reward: 2184.130645628253
+---------------------------------------
+Evaluation over 10 episodes: mean: 74.067, std: 23.886
+---------------------------------------
+
+Time steps: 350000
+Episode reward: 2012.1499333337008
+Episode reward: 4158.820444861209
+Episode reward: 3943.1656019692095
+Episode reward: 3974.315801947343
+Episode reward: 4133.731012332403
+Episode reward: 4227.653770413631
+Episode reward: 4167.284314923821
+Episode reward: 2462.658132752346
+Episode reward: 3991.5845251008336
+Episode reward: 3556.916398936262
+---------------------------------------
+Evaluation over 10 episodes: mean: 82.076, std: 18.633
+---------------------------------------
+
+Time steps: 400000
+Episode reward: 3942.880265982854
+Episode reward: 4182.016988434903
+Episode reward: 3665.929699149288
+Episode reward: 3097.946052746855
+Episode reward: 4025.786134977916
+Episode reward: 4027.4262438526644
+Episode reward: 4306.991405927491
+Episode reward: 4190.1975527841105
+Episode reward: 4047.487280233175
+Episode reward: 4236.376701133252
+---------------------------------------
+Evaluation over 10 episodes: mean: 89.850, std: 8.497
+---------------------------------------
+
+Time steps: 450000
+Episode reward: 2950.6669956850596
+Episode reward: 2842.8656016248474
+Episode reward: 3479.3066153622485
+Episode reward: 4043.7206857296082
+Episode reward: 3139.219122731346
+Episode reward: 4204.175951339914
+Episode reward: 4149.022830233564
+Episode reward: 3689.7892200243177
+Episode reward: 4223.71273775145
+Episode reward: 2585.987485177988
+---------------------------------------
+Evaluation over 10 episodes: mean: 78.760, std: 14.782
+---------------------------------------
+
+Time steps: 500000
+Episode reward: 4069.9531088138906
+Episode reward: 3802.016808548162
+Episode reward: 4170.52909865151
+Episode reward: 4169.366382577891
+Episode reward: 4158.152786174607
+Episode reward: 4119.730744386458
+Episode reward: 4215.573359145243
+Episode reward: 4169.457692864519
+Episode reward: 3172.4296886667507
+Episode reward: 4116.009711120005
+---------------------------------------
+Evaluation over 10 episodes: mean: 90.956, std: 7.587
+---------------------------------------
+
+Time steps: 550000
+Episode reward: 4166.648423227507
+Episode reward: 4168.747001892714
+Episode reward: 3496.379732793115
+Episode reward: 2561.185583436779
+Episode reward: 3385.420711846939
+Episode reward: 3870.029601567687
+Episode reward: 3542.6725830429255
+Episode reward: 3860.119960993249
+Episode reward: 2949.164883309114
+Episode reward: 3599.7276945465896
+---------------------------------------
+Evaluation over 10 episodes: mean: 79.493, std: 12.131
+---------------------------------------
+
+Time steps: 600000
+Episode reward: 3978.0744044458793
+Episode reward: 4213.278237005795
+Episode reward: 4174.549023260971
+Episode reward: 3788.8127751406264
+Episode reward: 4194.65771783528
+Episode reward: 3351.2607094851815
+Episode reward: 2819.1727427340034
+Episode reward: 3982.334926839364
+Episode reward: 4199.072369640555
+Episode reward: 4172.796051335153
+---------------------------------------
+Evaluation over 10 episodes: mean: 87.717, std: 10.999
+---------------------------------------
+
+Time steps: 650000
+Episode reward: 1868.8787245270466
+Episode reward: 3228.7836125628032
+Episode reward: 4189.189888045584
+Episode reward: 1540.9843022773584
+Episode reward: 2231.222412626211
+Episode reward: 4229.238100469905
+Episode reward: 1915.2763891959603
+Episode reward: 1578.3868574412772
+Episode reward: 2538.5867890370237
+Episode reward: 2150.1734984055497
+---------------------------------------
+Evaluation over 10 episodes: mean: 54.047, std: 23.909
+---------------------------------------
+
+Time steps: 700000
+Episode reward: 3028.4215689608723
+Episode reward: 4095.414877642812
+Episode reward: 4120.02330126548
+Episode reward: 3511.5299483404506
+Episode reward: 4048.0854385622547
+Episode reward: 3109.5348159041073
+Episode reward: 3163.498285439701
+Episode reward: 2108.3200236105145
+Episode reward: 3599.9282077904445
+Episode reward: 4158.740100199117
+---------------------------------------
+Evaluation over 10 episodes: mean: 77.844, std: 15.704
+---------------------------------------
+
+Time steps: 750000
+Episode reward: 3888.374262597501
+Episode reward: 3943.6447626323243
+Episode reward: 4146.5605831986995
+Episode reward: 2488.3997949272493
+Episode reward: 2802.766972986326
+Episode reward: 2182.8199790591684
+Episode reward: 2969.3582254979847
+Episode reward: 3830.5550358911682
+Episode reward: 4158.803313615428
+Episode reward: 4011.935065473217
+---------------------------------------
+Evaluation over 10 episodes: mean: 76.537, std: 17.876
+---------------------------------------
+
+Time steps: 800000
+Episode reward: 3862.8846755220097
+Episode reward: 4117.249450915454
+Episode reward: 4105.347218446591
+Episode reward: 4137.960150405705
+Episode reward: 4093.032321902429
+Episode reward: 2504.7233467354176
+Episode reward: 4107.306457236983
+Episode reward: 4136.9966058089385
+Episode reward: 4115.027363256772
+Episode reward: 4120.883208336776
+---------------------------------------
+Evaluation over 10 episodes: mean: 88.791, std: 12.091
+---------------------------------------
+
+Time steps: 850000
+Episode reward: 4004.1488502660595
+Episode reward: 4015.76593534904
+Episode reward: 3991.000989443518
+Episode reward: 4056.8952409165004
+Episode reward: 3998.2070983859203
+Episode reward: 4129.6765293245035
+Episode reward: 4149.9282670558005
+Episode reward: 2779.46024463579
+Episode reward: 4013.671573859947
+Episode reward: 4024.182973609259
+---------------------------------------
+Evaluation over 10 episodes: mean: 88.443, std: 9.610
+---------------------------------------
+
+Time steps: 900000
+Episode reward: 4214.270464311852
+Episode reward: 2397.642595269389
+Episode reward: 4178.425541418704
+Episode reward: 3861.4923317117837
+Episode reward: 4202.470425015234
+Episode reward: 4180.574668005988
+Episode reward: 4288.070032723862
+Episode reward: 2166.593918888764
+Episode reward: 4186.676902705485
+Episode reward: 4119.691954539301
+---------------------------------------
+Evaluation over 10 episodes: mean: 85.009, std: 19.042
+---------------------------------------
+
+Time steps: 950000
+Episode reward: 694.0597762600374
+Episode reward: 4012.63758656721
+Episode reward: 4038.0587285858815
+Episode reward: 4131.432319835938
+Episode reward: 4192.931080686133
+Episode reward: 4116.498751141448
+Episode reward: 4187.849098451517
+Episode reward: 4115.465391807926
+Episode reward: 4182.539188910427
+Episode reward: 3441.9786520143784
+---------------------------------------
+Evaluation over 10 episodes: mean: 83.295, std: 25.814
+---------------------------------------
+
+Time steps: 1000000
+Episode reward: 4170.998973249818
+Episode reward: 4029.7776095574472
+Episode reward: 4200.629018680553
+Episode reward: 4156.149161432516
+Episode reward: 4295.513062705893
+Episode reward: 2262.9192269120254
+Episode reward: 3800.608229889939
+Episode reward: 4121.830845259261
+Episode reward: 4126.5972793694245
+Episode reward: 4116.132548879579
+---------------------------------------
+Evaluation over 10 episodes: mean: 88.740, std: 14.282
+---------------------------------------

@@ -3,19 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simulation Dashboard</title>
+    <title>Algorithm Performance Analysis</title>
     <style>
-        :root {
-            --primary: #4a6fff;
-            --primary-dark: #3a5cdd;
-            --secondary: #6c757d;
-            --light: #f8f9fa;
-            --dark: #343a40;
-            --success: #28a745;
-            --info: #17a2b8;
-            --warning: #ffc107;
-            --danger: #dc3545;
-        }
+    :root {
+    --bg-primary: #FFFAF5;
+    --bg-secondary: #F0E5CF;
+    --bg-tertiary: #C5D8D1;
+    --text-primary: #333333;
+    --text-secondary: #717171;
+    --accent-primary: #B17B62;
+    --accent-secondary: #c89a85;
+    --border-color: #F0E5CF;
+    --card-bg: #FFFFFF;
+    --card-hover: #F5EDE1;
+    --success: #84a98c;
+    --info: #8ab6d6;
+    --warning: #e5be8b;
+    --danger: #B17B62;
+    --section-padding: 3rem 0;
+}
         
         * {
             box-sizing: border-box;
@@ -24,231 +30,674 @@
         }
         
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
             line-height: 1.6;
-            color: var(--dark);
-            background-color: #f5f7fa;
+            color: var(--text-primary);
+            background-color: var(--bg-primary);
         }
         
-        .container {
-            max-width: 1200px;
+        .container {  
+            max-width: 1300px;
             margin: 0 auto;
-            padding: 2rem;
+            padding: 0 2rem;
         }
         
-        header {
+        /* Header & Title Section */
+        .paper-header {
+            padding: 3rem 0 1.5rem;
             text-align: center;
-            margin-bottom: 3rem;
+            border-bottom: 1px solid var(--border-color);
         }
         
-        h1 {
+        .paper-title {
             font-size: 2.5rem;
-            margin-bottom: 1rem;
-            color: var(--dark);
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
         }
         
-        .subtitle {
-            font-size: 1.2rem;
-            color: var(--secondary);
+        .authors {
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+            color: var(--text-secondary);
+        }
+        
+        .author {
+            display: inline-block;
+            margin-right: 0.5rem;
+        }
+        
+        .superscript {
+            vertical-align: super;
+            font-size: smaller;
+        }
+        
+        .affiliations {
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+        
+        .paper-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        
+        .paper-button {
+            background-color: var(--bg-tertiary);
+            color: var(--text-primary);
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        
+        .paper-button:hover {
+            background-color: var(--accent-primary);
+        }
+        
+        .tldr {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 1rem;
+            background: var(--bg-secondary);
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .tldr-label {
+            font-weight: bold;
+            color: var(--accent-primary);
+        }
+        
+        .divider {
+            max-width: 800px;
+            margin: 2rem auto;
+            text-align: center;
+            color: var(--accent-secondary);
+            font-style: italic;
+        }
+        
+        /* Section Styling */
+        .section {
+            padding: var(--section-padding);
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+            color: var(--accent-primary);
+        }
+        
+        .section-content {
             margin-bottom: 2rem;
         }
         
-        .simulations-grid {
+        /* Motivation Section */
+        .motivation-text {
+            font-size: 1rem;
+            line-height: 1.8;
+        }
+
+        /* Bulleted content within motivation */
+        .motivation-bullets {
+            font-size: 1rem;
+            line-height: 1.8;
+            margin-left: 1.5rem;
+            margin-bottom: 0.8rem; /* Slightly more than .motivation-text */
+        }
+                
+        .highlight {
+            font-style: italic;
+            color: var(--accent-secondary);
+        }
+        
+        /* Results Section */
+        .results-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: 1fr 1fr;
             gap: 2rem;
+            margin-bottom: 2rem;
         }
-        
-        .simulation-card {
-            background: linear-gradient(135deg, #e0f7fa, #fff3e0);
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+        .result-figure {
+            background-color: var(--bg-secondary);
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
         }
-        
-        .simulation-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
-        }
-        
-        .simulation-media {
-            height: 200px;
-            background-color: #eee;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .sim-gif {
-            width: 100%;
-            max-height: 200px;
-            object-fit: contain;
-            display: none;
-        }
-        
-        .sim-placeholder {
-            width: 100%;
+
+        .figure-placeholder {
+            background: var(--bg-tertiary);
             height: 300px;
             display: flex;
             align-items: center;
             justify-content: center;
-            background-color: #f5f5f5;
-            font-weight: 500;
-            color: #333;
-            font-size: 1rem;
-        }
-        
-        .sim-number {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background-color: #00796b;
-            color: white;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            z-index: 10;
-        }
-        
-        .play-button {
-            background-color: transparent;
-            color: white;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 20;
-            cursor: pointer;
-            display: none;
-        }
-        
-        .play-button:hover {
-            background-color: transparent;
-        }
-    
-        .play-icon {
-            width: 0;
-            height: 0;
-            border-style: solid;
-            border-width: 10px 0 10px 20px;
-            border-color: transparent transparent transparent black;
-            margin-left: 0px;
+            color: var(--text-secondary);
+            border-radius: 4px;
+            margin-bottom: 1rem;
         }
 
-        .simulation-media:hover .play-button {
-            display: block;
-        }
-        
-        .pause-icon {
-            display: none;
-            width: 18px;
-            height: 18px;
-            border-style: solid;
-            border-width: 0 5px;
-            border-color: black;
-        }
-        
-        .simulation-info {
-            padding: 1rem;
-            background-color: #ffffffc7;
-        }
-        
-        .simulation-title {
-            font-size: 1.25rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            text-align: center;
-        }
-        
-        .simulation-description {
-            color: var(--secondary);
+        .figure-caption {
             font-size: 0.9rem;
-            margin-bottom: 1rem;
+            color: var(--text-secondary);
         }
-        
-        .results-toggle {
-            display: block;
-            width: 100%;
-            padding: 0.75rem 1rem;
-            background-color: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-size: 1rem;
-            font-weight: 500;
-            cursor: pointer;
-            text-align: center;
-            transition: background-color 0.3s ease;
-            margin-bottom: 1rem;
+
+        /* Results Table */
+        .results-table-container {
+            overflow-x: auto;
+            margin: 2rem 0;
         }
-        
-        .results-toggle:hover {
-            background-color: var(--primary-dark);
-        }
-        
-        .results-toggle:after {
-            content: "↓";
-            margin-left: 0.5rem;
-        }
-        
-        .results-toggle.active:after {
-            content: "↑";
-        }
-        
-        .results-container {
-            display: none;
-            margin-top: 1rem;
-            overflow: hidden;
-            transition: max-height 0.3s ease;
-        }
-        
-        .results-container.show {
-            display: block;
-        }
-        
+
         .results-table {
             width: 100%;
             border-collapse: collapse;
             font-size: 0.85rem;
         }
-        
-        .results-table th,
+
+            .results-table th,
         .results-table td {
-            padding: 0.5rem;
-            text-align: left;
-            border: 1px solid #dee2e6;
+            padding: 0.75rem;
+            text-align: center;
+            border: 1px solid var(--border-color);
         }
-        
+
+        .results-table thead tr th {
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .results-table thead th {
+            vertical-align: middle; /* Vertically center multi-row headers */
+            text-align: center;
+        }
+
         .results-table th {
-            background-color: #f8f9fa;
+            background-color: var(--bg-tertiary);
             font-weight: 600;
+            vertical-align: middle;
+            text-align: center;
         }
-        
+
         .results-table tr:nth-child(even) {
-            background-color: #f1f3f5;
+            background-color: var(--bg-secondary);
+        }
+
+        .results-table .subcolumn {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            text-align: center;
         }
         
-        .best-result {
-            color: var(--success);
+        .section {
+            padding: 3rem 0;
+            background-color: transparent;
+            border-radius: 15px;
+            margin: 0 auto;
+            max-width: 1100px;
+            box-shadow: none;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.8rem;
+            margin-bottom: 2rem;
+            color: var(--text-primary);
+            font-weight: 700;
+        }
+        
+        /* Container for the entire simulation display area */
+        .simulation-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            overflow: hidden;
+            width: 100%;
+            background: transparent;
+            border-radius: 12px;
+            box-shadow: none;
+        }
+        
+        /* Wrapper for the simulation cards */
+        .simulation-wrapper {
+            width: 100%;
+            overflow: hidden;
+        }
+        
+        /* Carousel container for the simulation cards */
+        .simulations-carousel {
+            display: flex;
+            transition: transform 0.5s ease;
+            width: 100%;
+        }
+        
+        /* Individual simulation card */
+        .simulation-card {
+            min-width: 100%;
+            flex: 0 0 100%;
+            background: linear-gradient(to bottom, rgba(250,250,250,0.5), rgba(245,245,245,0.7));
+            border-radius: 10px;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            padding: 2rem;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            box-sizing: border-box;
+            border: 1px solid rgba(230, 230, 230, 0.8);
+        }
+        
+        /* Container for simulation info and media */
+        .simulation-info-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            align-items: center;
+            text-align: center;
+        }
+        
+        /* Media container for GIFs */
+        .simulation-media {
+            width: 100%;
+            max-width: 400px;
+            height: 500px; /* Taller for better portrait aspect ratio */
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            background-color: rgba(245, 245, 245, 0.8);
+            margin: 0 auto;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(220, 220, 220, 0.8);
+        }
+        
+        /* Simulation information */
+        .simulation-info {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 0.5rem;
+            width: 100%;
+            max-width: 700px;
+            margin: 0 auto;
+            order: -1; /* Move info above media */
+        }
+        
+        /* GIF styling */
+        .sim-gif {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none;
+        }
+        
+        /* Placeholder styling */
+        .sim-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--bg-tertiary);
+            font-weight: 500;
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+        }
+        
+        /* Play button styling */
+        .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            z-index: 10;
+        }
+        
+        .play-button:hover {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+        
+        .play-icon {
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 15px 0 15px 25px;
+            border-color: transparent transparent transparent white;
+            display: block;
+        }
+        
+        .pause-icon {
+            display: none;
+            width: 22px;
+            height: 22px;
+            border-style: solid;
+            border-width: 0 6px;
+            border-color: white;
+        }
+        
+        /* Simulation title and description */
+        .simulation-title {
+            font-size: 2.2rem;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+            color: var(--text-primary);
+            text-align: center;
+        }
+        
+        .simulation-description {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            text-align: center;
+            line-height: 1.6;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Graph section */
+        .graph-section {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            align-items: center;
+        }
+        
+        /* Graph toggle buttons - Centered */
+        .graph-toggles {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .graph-toggle {
+            padding: 0.75rem 1.5rem;
+            background-color: rgba(240, 240, 240, 0.8);
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .graph-toggle.active {
+            background-color: var(--accent-primary);
+            color: white;
+            border-color: var(--accent-primary);
+        }
+        
+        /* Graph container */
+        .graph-container {
+            position: relative;
+            height: 380px;
+            width: 100%;
+            max-width: 750px;
+            border-radius: 10px;
+            overflow: hidden;
+            background-color: rgba(245, 245, 245, 0.7);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(220, 220, 220, 0.8);
+        }
+        
+        /* Individual graphs */
+        .graph {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: none;
+            transition: opacity 0.3s ease;
+        }
+        
+        .graph.active {
+            display: block;
+        }
+        
+        .graph-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        
+        /* Navigation buttons */
+        .nav-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border: none;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            z-index: 20;
+        }
+        
+        .prev-button {
+            left: 10px;
+        }
+        
+        .next-button {
+            right: 10px;
+        }
+        
+        .nav-button:hover {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+        
+        .nav-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .nav-arrow {
+            color: white;
+            font-size: 1.5rem;
             font-weight: bold;
         }
         
+        /* Responsive styles */
+        @media (max-width: 992px) {
+            .simulation-media {
+                width: 100%;
+                max-width: 350px;
+                height: 450px;  /* Taller for mobile portrait */
+            }
+            
+            .nav-button {
+                width: 40px;
+                height: 40px;
+            }
+            
+            .nav-arrow {
+                font-size: 1.2rem;
+            }
+            
+            .simulation-card {
+                padding: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .simulation-container {
+                padding: 0 1rem;
+            }
+            
+            .simulation-card {
+                padding: 1rem;
+            }
+            
+            .simulation-media {
+                height: 350px;
+                max-width: 250px;  /* Narrower width but still tall */
+            }
+            
+            .graph-container {
+                height: 250px;
+            }
+            
+            .simulation-title {
+                font-size: 1.5rem;
+            }
+            
+            .simulation-description {
+                font-size: 1rem;
+            }
+            
+            .play-button {
+                width: 50px;
+                height: 50px;
+            }
+            
+            .play-icon {
+                border-width: 10px 0 10px 18px;
+            }
+            
+            .pause-icon {
+                width: 16px;
+                height: 16px;
+                border-width: 0 4px;
+            }
+            
+            .nav-button {
+                width: 36px;
+                height: 36px;
+            }
+        }
+        
+        /* Implementation Details Section */
+        .implementation-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+        
+        .implementation-dropdown {
+            background-color: var(--bg-secondary);
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+        }
+        
+        .dropdown-header {
+            background-color: var(--bg-tertiary);
+            padding: 1rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .dropdown-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .dropdown-icon {
+            transition: transform 0.3s ease;
+        }
+        
+        .dropdown-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        
+        .dropdown-content.show {
+            max-height: 2000px;
+        }
+        
+        .dropdown-inner {
+            padding: 1.5rem;
+        }
+        
+        .algorithm-section {
+            margin-bottom: 2rem;
+        }
+        
+        .algorithm-section h4 {
+            margin-bottom: 1rem;
+            color: var(--accent-secondary);
+        }
+        
+        .algorithm-section p {
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+        
+        .result-images {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        
+        .result-image {
+            background-color: var(--bg-tertiary);
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            color: var(--text-secondary);
+        }
+        
+        .algorithm-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.85rem;
+        }
+        
+        .algorithm-table th,
+        .algorithm-table td {
+            padding: 0.75rem;
+            text-align: left;
+            border: 1px solid var(--border-color);
+        }
+        
+        .algorithm-table th {
+            background-color: var(--bg-tertiary);
+            color: var(--text-primary);
+        }
+        
+        /* Footer */
         footer {
-            margin-top: 4rem;
+            padding: 2rem 0;
             text-align: center;
-            color: var(--secondary);
+            color: var(--text-secondary);
             font-size: 0.9rem;
         }
         
@@ -257,481 +706,1126 @@
             .simulations-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
+            .implementation-container {
+                grid-template-columns: 1fr;
+            }
+            .results-grid {
+                grid-template-columns: 1fr;
+            }
         }
         
-        @media (max-width: 576px) {
+        @media (max-width: 768px) {
             .simulations-grid {
                 grid-template-columns: 1fr;
             }
-            
             .container {
-                padding: 1rem;
+                padding: 0 1rem;
             }
+            .paper-title {
+                font-size: 2rem;
+            }
+        }
+
+        /* Algorithm Section Specific Styles */
+
+        /* Algorithm Grid Layout */
+        .algorithms-section {
+        padding: var(--section-padding);
+        background-color: var(--bg-primary);
+        }
+
+        .algorithms-intro {
+        text-align: center;
+        margin-bottom: 2rem;
+        }
+
+        .algorithms-intro h2 {
+        font-size: 2.5rem;
+        color: var(--accent-primary);
+        margin-bottom: 1rem;
+        }
+
+        .algorithms-intro p {
+        max-width: 800px;
+        margin: 0 auto;
+        color: var(--text-secondary);
+        }
+
+        .algorithms-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 1.5rem;
+        margin-top: 2rem;
+        }
+
+        /* Algorithm Card Styles */
+        .algorithm-card {
+        background-color: var(--card-bg);
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        overflow: hidden;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        justify-content: center;
+        cursor: pointer;
+        align-content: center;
+        position: relative;
+        }
+
+        .algorithm-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        background-color: var(--card-hover);
+        }
+
+        .algorithm-card-content {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start; /* Aligns children (text + button) to the left */
+            justify-content: flex-start; /* Ensures content starts from the top */
+            height: 100%; /* Ensures it uses full card height */
+        }
+
+        .algorithm-card h3 {
+        color: var(--accent-primary);
+        font-size: 1.4rem;
+        margin-bottom: 0.5rem;
+        align-content: center;
+        }
+
+        .algorithm-card p {
+        color: var(--text-secondary);
+        font-size: 0.95rem;
+        margin-bottom: 1rem;
+        align-content: center;
+        }
+
+        .algorithm-thumbnail {
+        height: 160px;
+        background-color: var(--bg-secondary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        }
+
+        .algorithm-thumbnail img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        }
+
+        .view-more-btn {
+        display: inline-block;
+        background-color: var(--accent-primary);
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 6px;
+        font-size: 0.9rem;
+        transition: background-color 0.3s ease;
+        text-align: center;
+        border: none;
+        cursor: pointer;
+        }
+
+        .view-more-btn:hover {
+        background-color: var(--accent-secondary);
+        }
+
+        /* Modal Styles */
+        .algorithm-modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.7);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .algorithm-modal-overlay.active {
+        opacity: 1;
+        visibility: visible;
+        }
+
+        .algorithm-modal {
+        background-color: var(--card-bg);
+        border-radius: 12px;
+        width: 90%;
+        max-width: 1000px;
+        max-height: 90vh;
+        overflow-y: auto;
+        padding: 2rem;
+        position: relative;
+        transform: translateY(20px);
+        transition: transform 0.3s ease;
+        }
+
+        .algorithm-modal-overlay.active .algorithm-modal {
+        transform: translateY(0);
+        }
+
+        .modal-close {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: var(--text-secondary);
+        transition: color 0.3s ease;
+        }
+
+        .modal-close:hover {
+        color: var(--accent-primary);
+        }
+
+        .modal-header {
+        margin-bottom: 1.5rem;
+        }
+
+        .modal-header h3 {
+        font-size: 1.8rem;
+        color: var(--accent-primary);
+        }
+
+        .graphs-container {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+        margin: 1.5rem 0;
+        }
+
+        .graph-wrapper {
+        background-color: var(--bg-secondary);
+        border-radius: 8px;
+        overflow: hidden;
+        padding: 1rem;
+        height: 300px;
+        }
+
+        .modal-section {
+        margin: 1.5rem 0;
+        }
+
+        .modal-section h4 {
+        font-size: 1.2rem;
+        color: var(--accent-primary);
+        margin-bottom: 0.8rem;
+        }
+
+        .modal-section p {
+        color: var(--text-secondary);
+        line-height: 1.6;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+        .algorithms-grid {
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        }
+        
+        .graphs-container {
+            grid-template-columns: 1fr;
+        }
+        }
+
+        @media (max-width: 480px) {
+        .algorithm-modal {
+            padding: 1.5rem;
+        }
+        
+        .graphs-container {
+            gap: 1rem;
+        }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <header>
-            <h1>Simulation Dashboard</h1>
-            <p class="subtitle">Explore and compare algorithm performance across various simulations</p>
+        <!-- Paper Header Section -->
+        <header class="paper-header">
+            <h1 class="paper-title">Evaluating Offline RL Algorithms on Minari with NdLinear Layers</h1>
+            
+            <div class="authors">
+                <span class="author">Ashwin K M</span>
+            </div>
+            
+            <div class="affiliations">
+                <div>Indian Institute of Science, Bangalore</div>
+            </div>
+            
+            <div class="paper-buttons">
+                <button class="paper-button">
+                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M10.478 1.647a.5.5 0 1 0-.956-.294l-4 13a.5.5 0 0 0 .956.294l4-13zM4.854 4.146a.5.5 0 0 1 0 .708L1.707 8l3.147 3.146a.5.5 0 0 1-.708.708l-3.5-3.5a.5.5 0 0 1 0-.708l3.5-3.5a.5.5 0 0 1 .708 0zm6.292 0a.5.5 0 0 0 0 .708L14.293 8l-3.147 3.146a.5.5 0 0 0 .708.708l3.5-3.5a.5.5 0 0 0 0-.708l-3.5-3.5a.5.5 0 0 0-.708 0z"/>
+                    </svg>
+                    Code
+                </button>
+                <button class="paper-button">
+                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M8.186 1.113a.5.5 0 0 0-.372 0L1.846 3.5 8 5.961 14.154 3.5 8.186 1.113zM15 4.239l-6.5 2.6v7.922l6.5-2.6V4.24zM7.5 14.762V6.838L1 4.239v7.923l6.5 2.6zM7.443.184a1.5 1.5 0 0 1 1.114 0l7.129 2.852A.5.5 0 0 1 16 3.5v8.662a1 1 0 0 1-.629.928l-7.185 2.874a.5.5 0 0 1-.372 0L.63 13.09a1 1 0 0 1-.63-.928V3.5a.5.5 0 0 1 .314-.464L7.443.184z"/>
+                    </svg>
+                    Wandb
+                </button>
+            </div>
         </header>
         
-        <div class="simulations-grid">
-            <!-- Simulation 1 -->
-            <div class="simulation-card">
-                <div class="simulation-media">
-                    <div class="sim-number">1</div>
-                    <!-- REPLACE: Replace the path below with the path to your local GIF -->
-                     
-                    <img src="dt_sims/hopper_expert.gif" class="sim-gif" alt="Hopper Expert">
-                    <div class="sim-placeholder">Particle Simulation</div>
-                    <div class="play-button">
-                        <div class="play-icon"></div>
-                        <div class="pause-icon"></div>
-                    </div>
+        <div class="tldr">
+            <span class="tldr-label">TL;DR:</span> 
+            We analyze the performance of various reinforcement learning algorithms across different simulation environments, 
+            demonstrating that our proposed modifications consistently outperform baseline implementations.
+        </div>
+        
+        <!-- Motivation Section -->
+        <section id="motivation" class="section">
+            <h2 class="section-title">Motivation</h2>
+            <div class="section-content">
+                <p class="motivation-text">
+                We present a comprehensive benchmark study comparing the performance of popular <b>offline reinforcement learning </b> (RL) algorithms across standard Gymnasium MuJoCo environments: <b>HalfCheetah</b>, <b>Hopper</b>, and <b>Walker2d</b>. The methods evaluated include:
+                <ol class="motivation-bullets">
+                    <li>Decision Transformer (DT)</li>
+                    <li>Implicit Q Learning(IQL)</li>
+                    <li>Behavior Cloning (BC)</li>
+                    <li>TD3-BC</li>
+                    <li>AWAC</li>
+                    <li>ReBRAC</li>
+                </ol>
+                Our primary objective is to investigate the impact of replacing traditional fully connected layers (nn.Linear) with <b>NdLinear</b> layers, which preserve the <b>multi-dimensional structure</b> of input data.
+            </p>
+
+            <p class="motivation-text">
+            NdLinear introduces several advantages:
+            <ol class="motivation-bullets">
+                <li>Improved representational capacity</li>
+                <li>Parameter efficiency</li>
+                <li>Structure-aware transformations</li>
+                <li>Minimal computational overhead</li>
+            </ol>
+            By integrating NdLinear into existing RL models, we evaluate its effectiveness in enhancing <b><u>policy performance</u></b> without increasing architectural complexity. Our results show that <b><u>NdLinear can outperform nn.Linear</u></b> in several scenarios, establishing it as a <b><u>promising drop-in replacement</u></b> for deep RL pipelines.
+        </p>
+            </p>
+            </div>
+        </section>
+        
+        <!-- Results Section -->
+        <section id="results" class="section">
+            <h2 class="section-title">Results</h2>
+            
+            <div class="results-grid">
+                <div class="result-figure">
+                    <div class="figure-placeholder">Performance Comparison Chart (Placeholder)</div>
+                    <p class="figure-caption">Figure 1: Performance comparison of different algorithms across simulation environments</p>
                 </div>
-                <div class="simulation-info">
-                    <!-- EDIT: You can modify the title and description below -->
-                    <h3 class="simulation-title">Hopper Expert</h3>
-                    <p class="simulation-description">Hops very quickly with a natural motion, maintaining an upright posture throughout.</p>
-                    <button class="results-toggle">Show Results</button>
-                    <div class="results-container">
-                        <!-- EDIT: You can modify the table data below -->
-                        <table class="results-table">
-                            <thead>
-                                <tr>
-                                    <th>Algorithm</th>
-                                    <th>Accuracy</th>
-                                    <th>Speed</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Euler</td>
-                                    <td>85%</td>
-                                    <td class="best-result">120ms</td>
-                                </tr>
-                                <tr>
-                                    <td>Verlet</td>
-                                    <td class="best-result">95%</td>
-                                    <td>180ms</td>
-                                </tr>
-                                <tr>
-                                    <td>RK4</td>
-                                    <td>92%</td>
-                                    <td>210ms</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                <div class="result-figure">
+                    <div class="figure-placeholder">Algorithm Convergence Plot (Placeholder)</div>
+                    <p class="figure-caption">Figure 2: Convergence analysis showing learning curves for each algorithm variant</p>
                 </div>
             </div>
             
-            <!-- Simulation 2 -->
-            <div class="simulation-card">
-                <div class="simulation-media">
-                    <div class="sim-number">2</div>
-                    <!-- REPLACE: Replace the path below with the path to your local GIF -->
-                    <img src="dt_sims/hopper_medium.gif" class="sim-gif" alt="Hopper Medium">
-                    <div class="sim-placeholder">Fluid Dynamics</div>
-                    <div class="play-button">
-                        <div class="play-icon"></div>
-                        <div class="pause-icon"></div>
+            <div class="results-table-container">
+            <table class="results-table">
+                <thead>
+                    <tr>
+                        <th rowspan="2">Environment</th>
+                        <th colspan="2">BC-0.1</th>
+                        <th colspan="2">BC-1.0</th>
+                        <th colspan="2">AWAC</th>
+                        <th colspan="2">IQL</th>
+                        <th colspan="2">DT</th>
+                        <th colspan="2">TD3-BC</th>
+                        <th colspan="2">ReBRAC</th>
+                    </tr>
+                    <tr>
+                        <th class="subcolumn">Linear</th>
+                        <th class="subcolumn">NdLinear</th>
+                        <th class="subcolumn">Linear</th>
+                        <th class="subcolumn">NdLinear</th>
+                        <th class="subcolumn">Linear</th>
+                        <th class="subcolumn">NdLinear</th>
+                        <th class="subcolumn">Linear</th>
+                        <th class="subcolumn">NdLinear</th>
+                        <th class="subcolumn">Linear</th>
+                        <th class="subcolumn">NdLinear</th>
+                        <th class="subcolumn">Linear</th>
+                        <th class="subcolumn">NdLinear</th>
+                        <th class="subcolumn">Linear</th>
+                        <th class="subcolumn">NdLinear</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                    <td>Hopper (Expert)</td>
+                    <td>96.03 ± 0.00</td><td>96.03 ± 0.00</td>
+                    <td>94.61 ± 1.66</td><td>94.61 ± 1.66</td>
+                    <td>94.92 ± 1.46</td><td>94.92 ± 1.46</td>
+                    <td>91.96 ± 2.20</td><td>91.96 ± 2.20</td>
+                    <td>0.00 ± 0.00</td><td>0.00 ± 0.00</td>
+                    <td>93.65 ± 0.20</td><td>0.00 ± 0.00</td>
+                    <td>97.45 ± 0.00</td><td>97.45 ± 0.00</td>
+                </tr>
+                <tr>
+                    <td>Hopper (Medium)</td>
+                    <td>81.03 ± 0.00</td><td>81.03 ± 0.00</td>
+                    <td>81.21 ± 0.83</td><td>81.21 ± 0.83</td>
+                    <td>80.84 ± 0.86</td><td>80.84 ± 0.86</td>
+                    <td>81.33 ± 1.73</td><td>81.33 ± 1.73</td>
+                    <td>0.00 ± 0.00</td><td>0.00 ± 0.00</td>
+                    <td>81.62 ± 0.10</td><td>0.00 ± 0.00</td>
+                    <td>82.74 ± 0.00</td><td>82.74 ± 0.00</td>
+                </tr>
+                <tr>
+                    <td>Hopper (Simple)</td>
+                    <td>71.03 ± 0.00</td><td>71.03 ± 0.00</td>
+                    <td>70.88 ± 0.35</td><td>70.88 ± 0.35</td>
+                    <td>71.24 ± 0.25</td><td>71.24 ± 0.25</td>
+                    <td>70.63 ± 0.35</td><td>70.63 ± 0.35</td>
+                    <td>0.00 ± 0.00</td><td>0.00 ± 0.00</td>
+                    <td>70.95 ± 0.003</td><td>0.00 ± 0.00</td>
+                    <td>72.48 ± 0.00</td><td>72.48 ± 0.00</td>
+                </tr>
+                <tr>
+                    <td>HalfCheetah (Expert)</td>
+                    <td>94.68 ± 0.00</td><td>94.68 ± 0.00</td>
+                    <td>103.17 ± 0.39</td><td>103.17 ± 0.39</td>
+                    <td>100.71 ± 3.47</td><td>100.71 ± 3.47</td>
+                    <td>104.66 ± 0.48</td><td>104.66 ± 0.48</td>
+                    <td>0.00 ± 0.00</td><td>0.00 ± 0.00</td>
+                    <td>45.01 ± 0.004</td><td>0.00 ± 0.00</td>
+                    <td>106.27 ± 0.00</td><td>106.27 ± 0.00</td>
+                </tr>
+                <tr>
+                    <td>HalfCheetah (Medium)</td>
+                    <td>88.67 ± 0.00</td><td>88.67 ± 0.00</td>
+                    <td>93.47 ± 0.54</td><td>93.47 ± 0.54</td>
+                    <td>93.10 ± 0.38</td><td>93.10 ± 0.38</td>
+                    <td>92.78 ± 0.57</td><td>92.78 ± 0.57</td>
+                    <td>0.00 ± 0.00</td><td>0.00 ± 0.00</td>
+                    <td>68.84 ± 0.023</td><td>0.00 ± 0.00</td>
+                    <td>95.48 ± 0.00</td><td>95.48 ± 0.00</td>
+                </tr>
+                <tr>
+                    <td>HalfCheetah (Simple)</td>
+                    <td>96.03 ± 0.00</td><td>96.03 ± 0.00</td>
+                    <td>44.33 ± 0.44</td><td>44.33 ± 0.44</td>
+                    <td>45.03 ± 0.47</td><td>45.03 ± 0.47</td>
+                    <td>44.74 ± 0.45</td><td>44.74 ± 0.45</td>
+                    <td>0.00 ± 0.00</td><td>0.00 ± 0.00</td>
+                    <td>45.0095 ± 0.005</td><td>0.00 ± 0.00</td>
+                    <td>97.45 ± 0.00</td><td>97.45 ± 0.00</td>
+                </tr>
+                <tr>
+                    <td>Walker2d (Expert)</td>
+                    <td>96.03 ± 0.00</td><td>96.03 ± 0.00</td>
+                    <td>99.90 ± 0.21</td><td>99.90 ± 0.21</td>
+                    <td>99.00 ± 0.57</td><td>99.00 ± 0.57</td>
+                    <td>100.31 ± 0.23</td><td>100.31 ± 0.23</td>
+                    <td>0.00 ± 0.00</td><td>0.00 ± 0.00</td>
+                    <td>99.43 ± 0.004</td><td>0.00 ± 0.00</td>
+                    <td>97.45 ± 0.00</td><td>97.45 ± 0.00</td>
+                </tr>
+                <tr>
+                    <td>Walker2d (Medium)</td>
+                    <td>96.03 ± 0.00</td><td>96.03 ± 0.00</td>
+                    <td>89.41 ± 0.49</td><td>89.41 ± 0.49</td>
+                    <td>88.69 ± 0.53</td><td>88.69 ± 0.53</td>
+                    <td>89.32 ± 0.61</td><td>89.32 ± 0.61</td>
+                    <td>0.00 ± 0.00</td><td>0.00 ± 0.00</td>
+                    <td>89.68 ± 0.004</td><td>0.00 ± 0.00</td>
+                    <td>97.45 ± 0.00</td><td>97.45 ± 0.00</td>
+                </tr>
+                <tr>
+                    <td>Walker2d (Simple)</td>
+                    <td>96.03 ± 0.00</td><td>96.03 ± 0.00</td>
+                    <td>60.73 ± 0.75</td><td>60.73 ± 0.75</td>
+                    <td>59.42 ± 1.06</td><td>59.42 ± 1.06</td>
+                    <td>61.42 ± 2.57</td><td>61.42 ± 2.57</td>
+                    <td>0.00 ± 0.00</td><td>0.00 ± 0.00</td>
+                    <td>61.50 ± 0.01</td><td>0.00 ± 0.00</td>
+                    <td>97.45 ± 0.00</td><td>97.45 ± 0.00</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        </section>
+        
+
+<!-- Simulations Section -->
+<section id="simulations" class="section">
+    <h2 class="section-title">Simulations</h2>
+   
+    <div class="simulation-container">
+        <!-- Navigation Buttons -->
+        <button id="prev-btn" class="nav-button prev-button">
+            <span class="nav-arrow">&#10094;</span>
+        </button>
+       
+        <div class="simulation-wrapper">
+            <!-- Simulation Cards Container - Only one will be visible at a time -->
+            <div class="simulations-carousel">
+                <!-- Simulation 1 - Hopper Expert -->
+                <div class="simulation-card" data-index="0">
+                    <div class="simulation-info-container">
+                        <!-- Title and description moved to top -->
+                        <div class="simulation-info">
+                            <h3 class="simulation-title">Hopper Expert</h3>
+                            <p class="simulation-description">Hops very quickly with a natural motion, maintaining an upright posture throughout.</p>
+                        </div>
+                       
+                        <div class="simulation-media">
+                            <img src="dt_sims/hopper_expert.gif" class="sim-gif" alt="Hopper Expert">
+                            <div class="sim-placeholder">Hopper Expert</div>
+                            <div class="play-button">
+                                <div class="play-icon"></div>
+                                <div class="pause-icon"></div>
+                            </div>
+                        </div>
+                    </div>
+                   
+                    <div class="graph-section">
+                        <div class="graph-toggles">
+                            <button class="graph-toggle active" data-graph="nnlinear">nn.Linear</button>
+                            <button class="graph-toggle" data-graph="ndlinear">ndLinear</button>
+                        </div>
+                        <div class="graph-container">
+                            <div class="graph nnlinear-graph active">
+                                <img src="/api/placeholder/800/400" alt="nn.Linear Graph for Hopper Expert" class="graph-image">
+                            </div>
+                            <div class="graph ndlinear-graph">
+                                <img src="/api/placeholder/800/400" alt="ndLinear Graph for Hopper Expert" class="graph-image">
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="simulation-info">
-                    <!-- EDIT: You can modify the title and description below -->
-                    <h3 class="simulation-title">Hopper Medium</h3>
-                    <p class="simulation-description">Hops at a high speed with a natural motion, staying mostly upright.</p>
-                    <button class="results-toggle">Show Results</button>
-                    <div class="results-container">
-                        <!-- EDIT: You can modify the table data below -->
-                        <table class="results-table">
-                            <thead>
-                                <tr>
-                                    <th>Algorithm</th>
-                                    <th>Accuracy</th>
-                                    <th>Speed</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Lattice Boltzmann</td>
-                                    <td class="best-result">97%</td>
-                                    <td>340ms</td>
-                                </tr>
-                                <tr>
-                                    <td>SPH</td>
-                                    <td>89%</td>
-                                    <td class="best-result">290ms</td>
-                                </tr>
-                                <tr>
-                                    <td>FDM</td>
-                                    <td>92%</td>
-                                    <td>310ms</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                
+                <!-- Simulation 2 - Hopper Medium -->
+                <div class="simulation-card" data-index="1">
+                    <div class="simulation-info-container">
+                        <div class="simulation-info">
+                            <h3 class="simulation-title">Hopper Medium</h3>
+                            <p class="simulation-description">Hops at a high speed with a natural motion, staying mostly upright.</p>
+                        </div>
+                        
+                        <div class="simulation-media">
+                            <img src="dt_sims/hopper_medium.gif" class="sim-gif" alt="Hopper Medium">
+                            <div class="sim-placeholder">Hopper Medium</div>
+                            <div class="play-button">
+                                <div class="play-icon"></div>
+                                <div class="pause-icon"></div>
+                            </div>
+                        </div>
+                    </div>
+                   
+                    <div class="graph-section">
+                        <div class="graph-toggles">
+                            <button class="graph-toggle active" data-graph="nnlinear">nn.Linear</button>
+                            <button class="graph-toggle" data-graph="ndlinear">ndLinear</button>
+                        </div>
+                        <div class="graph-container">
+                            <div class="graph nnlinear-graph active">
+                                <img src="/api/placeholder/800/400" alt="nn.Linear Graph for Hopper Medium" class="graph-image">
+                            </div>
+                            <div class="graph ndlinear-graph">
+                                <img src="/api/placeholder/800/400" alt="ndLinear Graph for Hopper Medium" class="graph-image">
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            
-            <!-- Simulation 3 -->
-            <div class="simulation-card">
-                <div class="simulation-media">
-                    <div class="sim-number">3</div>
-                    <!-- REPLACE: Replace the path below with the path to your local GIF -->
-                    <img src="dt_sims/hopper_simple.gif"  class="sim-gif" alt="Hopper simple">
-                    <div class="sim-placeholder">Neural Network</div>
-                    <div class="play-button">
-                        <div class="play-icon"></div>
-                        <div class="pause-icon"></div>
+                
+                <!-- Simulation 3 - Hopper Simple -->
+                <div class="simulation-card" data-index="2">
+                    <div class="simulation-info-container">
+                        <div class="simulation-info">
+                            <h3 class="simulation-title">Hopper Simple</h3>
+                            <p class="simulation-description">Hops slowly while maintaining a mostly upright posture.</p>
+                        </div>
+                        
+                        <div class="simulation-media">
+                            <img src="dt_sims/hopper_simple.gif" class="sim-gif" alt="Hopper Simple">
+                            <div class="sim-placeholder">Hopper Simple</div>
+                            <div class="play-button">
+                                <div class="play-icon"></div>
+                                <div class="pause-icon"></div>
+                            </div>
+                        </div>
+                    </div>
+                   
+                    <div class="graph-section">
+                        <div class="graph-toggles">
+                            <button class="graph-toggle active" data-graph="nnlinear">nn.Linear</button>
+                            <button class="graph-toggle" data-graph="ndlinear">ndLinear</button>
+                        </div>
+                        <div class="graph-container">
+                            <div class="graph nnlinear-graph active">
+                                <img src="/api/placeholder/800/400" alt="nn.Linear Graph for Hopper Simple" class="graph-image">
+                            </div>
+                            <div class="graph ndlinear-graph">
+                                <img src="/api/placeholder/800/400" alt="ndLinear Graph for Hopper Simple" class="graph-image">
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="simulation-info">
-                    <!-- EDIT: You can modify the title and description below -->
-                    <h3 class="simulation-title">Hopper Simple</h3>
-                    <p class="simulation-description">Hops slowly while maintaining a mostly upright posture.</p>
-                    <button class="results-toggle">Show Results</button>
-                    <div class="results-container">
-                        <!-- EDIT: You can modify the table data below -->
-                        <table class="results-table">
-                            <thead>
-                                <tr>
-                                    <th>Algorithm</th>
-                                    <th>Accuracy</th>
-                                    <th>Time</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Gradient Descent</td>
-                                    <td>91%</td>
-                                    <td>450ms</td>
-                                </tr>
-                                <tr>
-                                    <td>Adam</td>
-                                    <td class="best-result">94%</td>
-                                    <td class="best-result">380ms</td>
-                                </tr>
-                                <tr>
-                                    <td>RMSProp</td>
-                                    <td>92%</td>
-                                    <td>410ms</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                
+                <!-- Simulation 4 - Halfcheetah Expert -->
+                <div class="simulation-card" data-index="3">
+                    <div class="simulation-info-container">
+                        <div class="simulation-info">
+                            <h3 class="simulation-title">Halfcheetah Expert</h3>
+                            <p class="simulation-description">Runs very fast with natural motion and never falls.</p>
+                        </div>
+                        
+                        <div class="simulation-media">
+                            <img src="dt_sims/halfcheetah_expert.gif" class="sim-gif" alt="Halfcheetah Expert">
+                            <div class="sim-placeholder">Halfcheetah Expert</div>
+                            <div class="play-button">
+                                <div class="play-icon"></div>
+                                <div class="pause-icon"></div>
+                            </div>
+                        </div>
+                    </div>
+                   
+                    <div class="graph-section">
+                        <div class="graph-toggles">
+                            <button class="graph-toggle active" data-graph="nnlinear">nn.Linear</button>
+                            <button class="graph-toggle" data-graph="ndlinear">ndLinear</button>
+                        </div>
+                        <div class="graph-container">
+                            <div class="graph nnlinear-graph active">
+                                <img src="/api/placeholder/800/400" alt="nn.Linear Graph for Halfcheetah Expert" class="graph-image">
+                            </div>
+                            <div class="graph ndlinear-graph">
+                                <img src="/api/placeholder/800/400" alt="ndLinear Graph for Halfcheetah Expert" class="graph-image">
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            
-            <!-- Simulation 4 -->
-            <div class="simulation-card">
-                <div class="simulation-media">
-                    <div class="sim-number">4</div>
-                    <!-- REPLACE: Replace the path below with the path to your local GIF -->
-                    <img src="path/to/your/local/pathfinding.gif" class="sim-gif" alt="Pathfinding Algorithms">
-                    <div class="sim-placeholder">Pathfinding Algorithms</div>
-                    <div class="play-button">
-                        <div class="play-icon"></div>
-                        <div class="pause-icon"></div>
+                
+                <!-- Simulation 5 - Halfcheetah Medium -->
+                <div class="simulation-card" data-index="4">
+                    <div class="simulation-info-container">
+                        <div class="simulation-info">
+                            <h3 class="simulation-title">Halfcheetah Medium</h3>
+                            <p class="simulation-description">Runs fast with natural motion and remains stable.</p>
+                        </div>
+                        
+                        <div class="simulation-media">
+                            <img src="dt_sims/halfcheetah_medium.gif" class="sim-gif" alt="Halfcheetah Medium">
+                            <div class="sim-placeholder">Halfcheetah Medium</div>
+                            <div class="play-button">
+                                <div class="play-icon"></div>
+                                <div class="pause-icon"></div>
+                            </div>
+                        </div>
+                    </div>
+                   
+                    <div class="graph-section">
+                        <div class="graph-toggles">
+                            <button class="graph-toggle active" data-graph="nnlinear">nn.Linear</button>
+                            <button class="graph-toggle" data-graph="ndlinear">ndLinear</button>
+                        </div>
+                        <div class="graph-container">
+                            <div class="graph nnlinear-graph active">
+                                <img src="/api/placeholder/800/400" alt="nn.Linear Graph for Halfcheetah Medium" class="graph-image">
+                            </div>
+                            <div class="graph ndlinear-graph">
+                                <img src="/api/placeholder/800/400" alt="ndLinear Graph for Halfcheetah Medium" class="graph-image">
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="simulation-info">
-                    <!-- EDIT: You can modify the title and description below -->
-                    <h3 class="simulation-title">Halfcheetah Expert</h3>
-                    <p class="simulation-description">Runs very fast with natural motion and never falls.</p>
-                    <button class="results-toggle">Show Results</button>
-                    <div class="results-container">
-                        <!-- EDIT: You can modify the table data below -->
-                        <table class="results-table">
-                            <thead>
-                                <tr>
-                                    <th>Algorithm</th>
-                                    <th>Path Length</th>
-                                    <th>Time</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>A*</td>
-                                    <td class="best-result">42 steps</td>
-                                    <td>180ms</td>
-                                </tr>
-                                <tr>
-                                    <td>Dijkstra</td>
-                                    <td>42 steps</td>
-                                    <td>240ms</td>
-                                </tr>
-                                <tr>
-                                    <td>BFS</td>
-                                    <td>45 steps</td>
-                                    <td class="best-result">120ms</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                
+                <!-- Simulation 6 - Halfcheetah Simple -->
+                <div class="simulation-card" data-index="5">
+                    <div class="simulation-info-container">
+                        <div class="simulation-info">
+                            <h3 class="simulation-title">Halfcheetah Simple</h3>
+                            <p class="simulation-description">Runs at a moderate speed and rarely falls.</p>
+                        </div>
+                        
+                        <div class="simulation-media">
+                            <img src="dt_sims/halfcheetah_simple.gif" class="sim-gif" alt="Halfcheetah Simple">
+                            <div class="sim-placeholder">Halfcheetah Simple</div>
+                            <div class="play-button">
+                                <div class="play-icon"></div>
+                                <div class="pause-icon"></div>
+                            </div>
+                        </div>
+                    </div>
+                   
+                    <div class="graph-section">
+                        <div class="graph-toggles">
+                            <button class="graph-toggle active" data-graph="nnlinear">nn.Linear</button>
+                            <button class="graph-toggle" data-graph="ndlinear">ndLinear</button>
+                        </div>
+                        <div class="graph-container">
+                            <div class="graph nnlinear-graph active">
+                                <img src="/api/placeholder/800/400" alt="nn.Linear Graph for Halfcheetah Simple" class="graph-image">
+                            </div>
+                            <div class="graph ndlinear-graph">
+                                <img src="/api/placeholder/800/400" alt="ndLinear Graph for Halfcheetah Simple" class="graph-image">
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            
-            <!-- Simulation 5 -->
-            <div class="simulation-card">
-                <div class="simulation-media">
-                    <div class="sim-number">5</div>
-                    <!-- REPLACE: Replace the path below with the path to your local GIF -->
-                    <img src="path/to/your/local/genetic-algorithms.gif" class="sim-gif" alt="Genetic Algorithms">
-                    <div class="sim-placeholder">Genetic Algorithms</div>
-                    <div class="play-button">
-                        <div class="play-icon"></div>
-                        <div class="pause-icon"></div>
+                
+                <!-- Simulation 7 - Walker2d Expert -->
+                <div class="simulation-card" data-index="6">
+                    <div class="simulation-info-container">
+                        <div class="simulation-info">
+                            <h3 class="simulation-title">Walker2d Expert</h3>
+                            <p class="simulation-description">Runs very fast with a wide gait and falls rarely.</p>
+                        </div>
+                        
+                        <div class="simulation-media">
+                            <img src="dt_sims/walker2d_expert.gif" class="sim-gif" alt="Walker2d Expert">
+                            <div class="sim-placeholder">Walker2d Expert</div>
+                            <div class="play-button">
+                                <div class="play-icon"></div>
+                                <div class="pause-icon"></div>
+                            </div>
+                        </div>
+                    </div>
+                   
+                    <div class="graph-section">
+                        <div class="graph-toggles">
+                            <button class="graph-toggle active" data-graph="nnlinear">nn.Linear</button>
+                            <button class="graph-toggle" data-graph="ndlinear">ndLinear</button>
+                        </div>
+                        <div class="graph-container">
+                            <div class="graph nnlinear-graph active">
+                                <img src="/api/placeholder/800/400" alt="nn.Linear Graph for Walker2d Expert" class="graph-image">
+                            </div>
+                            <div class="graph ndlinear-graph">
+                                <img src="/api/placeholder/800/400" alt="ndLinear Graph for Walker2d Expert" class="graph-image">
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="simulation-info">
-                    <!-- EDIT: You can modify the title and description below -->
-                    <h3 class="simulation-title">Halfcheetah Medium</h3>
-                    <p class="simulation-description">Runs fast with natural motion and remains stable.</p>
-                    <button class="results-toggle">Show Results</button>
-                    <div class="results-container">
-                        <!-- EDIT: You can modify the table data below -->
-                        <table class="results-table">
-                            <thead>
-                                <tr>
-                                    <th>Variant</th>
-                                    <th>Convergence</th>
-                                    <th>Iterations</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Standard GA</td>
-                                    <td>87%</td>
-                                    <td>145</td>
-                                </tr>
-                                <tr>
-                                    <td>NSGA-II</td>
-                                    <td class="best-result">92%</td>
-                                    <td class="best-result">120</td>
-                                </tr>
-                                <tr>
-                                    <td>Micro-GA</td>
-                                    <td>85%</td>
-                                    <td>138</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                
+                <!-- Simulation 8 - Walker2d Medium -->
+                <div class="simulation-card" data-index="7">
+                    <div class="simulation-info-container">
+                        <div class="simulation-info">
+                            <h3 class="simulation-title">Walker2d Medium</h3>
+                            <p class="simulation-description">Walks briskly with natural motion, remaining upright.</p>
+                        </div>
+                        
+                        <div class="simulation-media">
+                            <img src="dt_sims/walker2d_medium.gif" class="sim-gif" alt="Walker2d Medium">
+                            <div class="sim-placeholder">Walker2d Medium</div>
+                            <div class="play-button">
+                                <div class="play-icon"></div>
+                                <div class="pause-icon"></div>
+                            </div>
+                        </div>
+                    </div>
+                   
+                    <div class="graph-section">
+                        <div class="graph-toggles">
+                            <button class="graph-toggle active" data-graph="nnlinear">nn.Linear</button>
+                            <button class="graph-toggle" data-graph="ndlinear">ndLinear</button>
+                        </div>
+                        <div class="graph-container">
+                            <div class="graph nnlinear-graph active">
+                                <img src="/api/placeholder/800/400" alt="nn.Linear Graph for Walker2d Medium" class="graph-image">
+                            </div>
+                            <div class="graph ndlinear-graph">
+                                <img src="/api/placeholder/800/400" alt="ndLinear Graph for Walker2d Medium" class="graph-image">
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            
-            <!-- Simulation 6 -->
-            <div class="simulation-card">
-                <div class="simulation-media">
-                    <div class="sim-number">6</div>
-                    <!-- REPLACE: Replace the path below with the path to your local GIF -->
-                    <img src="path/to/your/local/monte-carlo.gif" class="sim-gif" alt="Monte Carlo Simulation">
-                    <div class="sim-placeholder">Monte Carlo Simulation</div>
-                    <div class="play-button">
-                        <div class="play-icon"></div>
-                        <div class="pause-icon"></div>
+                
+                <!-- Simulation 9 - Walker2d Simple -->
+                <div class="simulation-card" data-index="8">
+                    <div class="simulation-info-container">
+                        <div class="simulation-info">
+                            <h3 class="simulation-title">Walker2d Simple</h3>
+                            <p class="simulation-description">Walks at a moderate speed with natural motion, staying upright.</p>
+                        </div>
+                        
+                        <div class="simulation-media">
+                            <img src="dt_sims/walker2d_simple.gif" class="sim-gif" alt="Walker2d Simple">
+                            <div class="sim-placeholder">Walker2d Simple</div>
+                            <div class="play-button">
+                                <div class="play-icon"></div>
+                                <div class="pause-icon"></div>
+                            </div>
+                        </div>
+                    </div>
+                   
+                    <div class="graph-section">
+                        <div class="graph-toggles">
+                            <button class="graph-toggle active" data-graph="nnlinear">nn.Linear</button>
+                            <button class="graph-toggle" data-graph="ndlinear">ndLinear</button>
+                        </div>
+                        <div class="graph-container">
+                            <div class="graph nnlinear-graph active">
+                                <img src="/api/placeholder/800/400" alt="nn.Linear Graph for Walker2d Simple" class="graph-image">
+                            </div>
+                            <div class="graph ndlinear-graph">
+                                <img src="/api/placeholder/800/400" alt="ndLinear Graph for Walker2d Simple" class="graph-image">
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="simulation-info">
-                    <!-- EDIT: You can modify the title and description below -->
-                    <h3 class="simulation-title">Halfcheetah Simple</h3>
-                    <p class="simulation-description">Runs at a moderate speed and rarely falls.</p>
-                    <button class="results-toggle">Show Results</button>
-                    <div class="results-container">
-                        <!-- EDIT: You can modify the table data below -->
-                        <table class="results-table">
-                            <thead>
-                                <tr>
-                                    <th>Method</th>
-                                    <th>Error Rate</th>
-                                    <th>Samples</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Standard MC</td>
-                                    <td>2.4%</td>
-                                    <td>10,000</td>
-                                </tr>
-                                <tr>
-                                    <td>MCMC</td>
-                                    <td class="best-result">1.8%</td>
-                                    <td>8,000</td>
-                                </tr>
-                                <tr>
-                                    <td>Quasi-MC</td>
-                                    <td>2.1%</td>
-                                    <td class="best-result">7,500</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Simulation 7 -->
-            <div class="simulation-card">
-                <div class="simulation-media">
-                    <div class="sim-number">7</div>
-                    <!-- REPLACE: Replace the path below with the path to your local GIF -->
-                    <img src="path/to/your/local/swarm-intelligence.gif" class="sim-gif" alt="Swarm Intelligence">
-                    <div class="sim-placeholder">Swarm Intelligence</div>
-                    <div class="play-button">
-                        <div class="play-icon"></div>
-                        <div class="pause-icon"></div>
-                    </div>
-                </div>
-                <div class="simulation-info">
-                    <!-- EDIT: You can modify the title and description below -->
-                    <h3 class="simulation-title">Walker2d Expert</h3>
-                    <p class="simulation-description">Runs very fast with a wide gait and falls rarely.</p>
-                    <button class="results-toggle">Show Results</button>
-                    <div class="results-container">
-                        <!-- EDIT: You can modify the table data below -->
-                        <table class="results-table">
-                            <thead>
-                                <tr>
-                                    <th>Algorithm</th>
-                                    <th>Efficiency</th>
-                                    <th>Agents</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Particle Swarm</td>
-                                    <td>88%</td>
-                                    <td>50</td>
-                                </tr>
-                                <tr>
-                                    <td>Ant Colony</td>
-                                    <td class="best-result">93%</td>
-                                    <td>100</td>
-                                </tr>
-                                <tr>
-                                    <td>Bee Algorithm</td>
-                                    <td>90%</td>
-                                    <td class="best-result">30</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Simulation 8 -->
-            <div class="simulation-card">
-                <div class="simulation-media">
-                    <div class="sim-number">8</div>
-                    <!-- REPLACE: Replace the path below with the path to your local GIF -->
-                    <img src="path/to/your/local/climate-model.gif" class="sim-gif" alt="Climate Model">
-                    <div class="sim-placeholder">Climate Model</div>
-                    <div class="play-button">
-                        <div class="play-icon"></div>
-                        <div class="pause-icon"></div>
-                    </div>
-                </div>
-                <div class="simulation-info">
-                    <!-- EDIT: You can modify the title and description below -->
-                    <h3 class="simulation-title">Walker2d Medium</h3>
-                    <p class="simulation-description">Walks briskly with natural motion, remaining upright.</p>
-                    <button class="results-toggle">Show Results</button>
-                    <div class="results-container">
-                        <!-- EDIT: You can modify the table data below -->
-                        <table class="results-table">
-                            <thead>
-                                <tr>
-                                    <th>Model</th>
-                                    <th>Accuracy</th>
-                                    <th>Compute Time</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Simple</td>
-                                    <td>79%</td>
-                                    <td class="best-result">5 min</td>
-                                </tr>
-                                <tr>
-                                    <td>Regional</td>
-                                    <td>87%</td>
-                                    <td>12 min</td>
-                                </tr>
-                                <tr>
-                                    <td>Global</td>
-                                    <td class="best-result">94%</td>
-                                    <td>35 min</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Simulation 9 -->
-            <div class="simulation-card">
-                <div class="simulation-media">
-                    <div class="sim-number">9</div>
-                    <!-- REPLACE: Replace the path below with the path to your local GIF -->
-                    <img src="path/to/your/local/traffic-flow.gif" class="sim-gif" alt="Traffic Flow">
-                    <div class="sim-placeholder">Traffic Flow</div>
-                    <div class="play-button">
-                        <div class="play-icon"></div>
-                        <div class="pause-icon"></div>
-                    </div>
-                </div>
-                <div class="simulation-info">
-                    <!-- EDIT: You can modify the title and description below -->
-                    <h3 class="simulation-title">Walker2d Simple</h3>
-                    <p class="simulation-description">Walks at a moderate speed with natural motion, staying upright.</p>
-                    <button class="results-toggle">Show Results</button>
-                    <div class="results-container">
-                        <!-- EDIT: You can modify the table data below -->
-                        <table class="results-table">
-                            <thead>
-                                <tr>
-                                    <th>Strategy</th>
-                                    <th>Wait Time</th>
-                                    <th>Throughput</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Fixed Time</td>
-                                    <td>45s</td>
-                                    <td>780 cars/h</td>
-                                </tr>
-                                <tr>
-                                    <td>Adaptive</td>
-                                    <td class="best-result">32s</td>
-                                    <td class="best-result">920 cars/h</td>
-                                </tr>
-                                <tr>
-                                    <td>Predictive</td>
-                                    <td>35s</td>
-                                    <td>890 cars/h</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+                
             </div>
         </div>
+       
+        <button id="next-btn" class="nav-button next-button">
+            <span class="nav-arrow">&#10095;</span>
+        </button>
     </div>
+</section>
+<section class="algorithms-section" id="algorithms">
+  <div class="container">
+    <div class="algorithms-intro">
+      <h2>Algorithms</h2>
+      <p>Explore our collection of algorithms with interactive visualizations and detailed analysis.</p>
+    </div>
+
+    <div class="algorithms-grid">
+
+    <div class="algorithm-card" data-algorithm="1">
+  <div class="algorithm-card-content">
+    <h3>Behaviour Cloning(1.0)</h3>
+    <p>When trained on the <b>full dataset</b>, Behavior Cloning benefits from <b>comprehensive coverage of expert behavior</b>, enabling more accurate action prediction and stronger generalization within the demonstrated states.</p>
+    <p>Although still susceptible to <b>compounding errors over extended horizons</b>, full-data BC performs reliably in well-covered, dense-reward settings and provides a <b>robust baseline for offline reinforcement learning</b>.</p>
+    <p>Its <b>simplicity and effectiveness</b> make it a common starting point for evaluating more advanced offline RL methods.</p>
+    <button class="view-more-btn">View Details</button>
+  </div>
+</div>
+
+<div class="algorithm-card" data-algorithm="2">
+  <div class="algorithm-card-content">
+    <h3>Behaviour Cloning(0.1)</h3>
+    <p>Training Behavior Cloning with only <b>10% of the available demonstration data</b> often results in <b>limited policy effectiveness</b>.</p>
+    <p>The <b>reduced data coverage restricts the model’s ability to generalize</b>, leading to poor performance when encountering states outside the training distribution.</p>
+    <p>This limitation causes <b>errors to accumulate quickly over long sequences</b>, reducing reliability in complex tasks.</p>
+    <button class="view-more-btn">View Details</button>
+  </div>
+</div>
+
+<div class="algorithm-card" data-algorithm="3">
+  <div class="algorithm-card-content">
+    <h3>TD3 - BC</h3>
+    <p><b>TD3+BC</b> enhances the <b>TD3 (Twin Delayed DDPG) framework</b> for offline learning by introducing a <b>behavior cloning regularization term</b> into the policy objective.</p>
+    <p>This combination allows the policy to <b>maximize Q-values while staying close to the actions observed in the dataset</b>, preventing divergence.</p>
+    <p>The method achieves <b>strong performance on continuous control tasks using suboptimal data</b>, and serves as a strong foundation for more advanced methods.</p>
+    <button class="view-more-btn">View Details</button>
+  </div>
+</div>
+
+<div class="algorithm-card" data-algorithm="4">
+  <div class="algorithm-card-content">
+    <h3>ReBRAC</h3>
+    <p><b>ReBRAC (Revisited Behavior Regularized Actor Critic)</b> builds upon TD3+BC with a series of design improvements aimed at <b>better stability and efficiency</b>.</p>
+    <p>These include <b>deeper neural networks, layer normalization in critic networks, a high discount factor, and decoupled policy regularization</b>.</p>
+    <p>ReBRAC achieves <b>state-of-the-art results</b> on numerous D4RL and robotic benchmarks, while maintaining <b>architectural simplicity and fast convergence</b>.</p>
+    <button class="view-more-btn">View Details</button>
+  </div>
+</div>
+
+<div class="algorithm-card" data-algorithm="5">
+  <div class="algorithm-card-content">
+    <h3>AWAC</h3>
+    <p><b>AWAC (Advantage Weighted Actor Critic)</b> introduces a principled way to <b>prioritize better-than-average actions</b> by weighting them exponentially according to their estimated advantages.</p>
+    <p>This strategy allows the policy to improve while remaining close to the behavior policy, <b>avoiding distribution shift</b> without requiring its explicit estimation.</p>
+    <p>AWAC has demonstrated <b>impressive performance in sparse-reward tasks and real-world robotic control</b> with limited interaction.</p>
+    <button class="view-more-btn">View Details</button>
+  </div>
+</div>
+
+<div class="algorithm-card" data-algorithm="6">
+  <div class="algorithm-card-content">
+    <h3>Implicit Q Learning(IQL)</h3>
+    <p><b>Implicit Q-Learning (IQL)</b> tackles the offline RL challenge of <b>out-of-distribution actions</b> by avoiding the standard Q-learning max operator.</p>
+    <p>Instead, it uses <b>expectile regression</b> to learn a conservative value function and guides policy improvement implicitly through a <b>weighted regression framework</b>.</p>
+    <p>This design allows IQL to perform effectively with <b>suboptimal datasets</b> and achieve strong results <b>without explicit policy constraints</b>.</p>
+    <button class="view-more-btn">View Details</button>
+  </div>
+</div>
+
+<div class="algorithm-card" data-algorithm="7">
+  <div class="algorithm-card-content">
+    <h3>Decision Transformer(DT)</h3>
+    <p><b>Decision Transformers</b> reframe reinforcement learning as a <b>sequence modeling problem</b>, applying transformer architectures to predict actions based on past <b>(state, action, return-to-go) sequences</b>.</p>
+    <p>By leveraging the power of <b>generative modeling and causal attention</b>, they produce policies that can <b>generalize across long horizons and varying return conditions</b>.</p>
+    <p>This approach has shown <b>robustness in sparse-reward environments</b> and compatibility with <b>multimodal inputs like images</b>.</p>
+    <button class="view-more-btn">View Details</button>
+  </div>
+</div>
+    </div>
+  </div>
+
+  <div class="algorithm-modal-overlay" id="algorithm-modal-overlay">
+    <div class="algorithm-modal">
+      <button class="modal-close">&times;</button>
+
+      <div class="modal-content">
+        </div>
+    </div>
+  </div>
+</section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const modalOverlay = document.getElementById('algorithm-modal-overlay');
+  const modalContent = document.querySelector('.modal-content');
+  const modalClose = document.querySelector('.modal-close');
+  const algorithmCards = document.querySelectorAll('.algorithm-card');
+  
+  // Sample data for algorithms with custom images for each algorithm
+  const algorithmData = {
+    '1': {
+      title: 'Your Algorithm Title Here',
+      observations: 'Quicksort has an average time complexity of O(n log n) making it quite efficient for large datasets. However, its worst-case performance is O(n²) when poorly implemented or with certain data patterns.',
+      conclusions: 'Despite its worst-case time complexity, Quicksort is often the best practical choice for sorting because it\'s generally faster in practice and works in-place requiring only log(n) additional space.',
+      graphs: [
+        {
+          title: 'Time Complexity Comparison',
+          description: 'Comparing Quicksort performance across different input sizes',
+          imageSrc: 'algorithm_results/BC-0.1_nn.Linear.png' // Custom image path
+        },
+        {
+          title: 'Memory Usage',
+          description: 'Stack memory usage during recursion for different pivot selection strategies',
+          imageSrc: '/path/to/quicksort-memory-usage.jpg' // Custom image path
+        }
+      ]
+    },
+    '2': {
+      title: 'Behaviour Cloning(0.1)',
+      observations: 'Binary search runs in logarithmic time in the worst case, making O(log n) comparisons. This efficiency makes it suitable for large datasets where linear search would be impractical.',
+      conclusions: 'Binary search demonstrates the power of the divide-and-conquer approach when working with sorted data. For frequently searched collections, the initial sorting cost is amortized by the efficiency gains.',
+      graphs: [
+        {
+          imageSrc: 'algorithm_results/BC-0.1_nn.Linear.png' // Custom image path
+        },
+        {
+          imageSrc: 'algorithm_results/BC-0.1_Ndlinear.png' // Custom image path
+        }
+      ]
+    },
+    '3': {
+      title: 'Breadth-First Search',
+      observations: 'BFS uses a queue data structure and explores vertices in order of their distance from the source vertex. This makes it optimal for finding the shortest path in unweighted graphs.',
+      conclusions: 'BFS is particularly useful for finding shortest paths and connected components in graphs. Its level-order traversal property makes it suitable for problems where distance optimization is needed.',
+      graphs: [
+        {
+          title: 'Level-Order Traversal',
+          description: 'Visualization of how BFS explores nodes level by level',
+          imageSrc: '/path/to/bfs-level-order.jpg' // Custom image path
+        },
+        {
+          title: 'Memory Usage',
+          description: 'Queue size during traversal for different graph structures',
+          imageSrc: '/path/to/bfs-memory-usage.jpg' // Custom image path
+        }
+      ]
+    },
+    '4': {
+      title: 'Dijkstra\'s Algorithm',
+      observations: 'While effective for finding shortest paths, Dijkstra\'s algorithm does not work with negative edge weights and can be computationally expensive for very large graphs.',
+      conclusions: 'Dijkstra\'s algorithm remains the backbone of many route-finding applications and network optimization problems. Its principles are foundational in graph theory.',
+      graphs: [
+        {
+          title: 'Shortest Path Visualization',
+          description: 'Illustration of how the algorithm finds the shortest path',
+          imageSrc: '/path/to/dijkstra-path.jpg' // Custom image path
+        },
+        {
+          title: 'Performance with Different Priority Queues',
+          description: 'Comparing implementations with different data structures',
+          imageSrc: '/path/to/dijkstra-performance.jpg' // Custom image path
+        }
+      ]
+    },
+    '5': {
+      title: 'A* Search',
+      observations: 'The efficiency of A* heavily depends on the quality of the heuristic function. With an admissible heuristic, A* is guaranteed to find the optimal path.',
+      conclusions: 'A* is widely used in pathfinding and graph traversal due to its optimality and efficiency when good heuristics are available. Its applications range from robot navigation to game AI.',
+      graphs: [
+        {
+          title: 'Path Finding Comparison',
+          description: 'Comparing A* with other pathfinding algorithms',
+          imageSrc: '/path/to/astar-comparison.jpg' // Custom image path
+        },
+        {
+          title: 'Heuristic Impact',
+          description: 'How different heuristics affect search efficiency',
+          imageSrc: '/path/to/astar-heuristic-impact.jpg' // Custom image path
+        }
+      ]
+    },
+    '6': {
+      title: 'Merge Sort',
+      observations: 'Merge sort consistently performs at O(n log n) time complexity regardless of the input data distribution. This predictability comes at the cost of O(n) auxiliary space complexity.',
+      conclusions: 'Merge sort\'s stability and consistent performance make it ideal for applications where predictable runtime is important. It\'s also well-suited for external sorting where data doesn\'t fit in memory.',
+      graphs: [
+        {
+          title: 'Performance Stability',
+          description: 'Consistent performance across different input distributions',
+          imageSrc: '/path/to/mergesort-stability.jpg' // Custom image path
+        },
+        {
+          title: 'Memory Usage',
+          description: 'Auxiliary space required during sorting operations',
+          imageSrc: '/path/to/mergesort-memory.jpg' // Custom image path
+        }
+      ]
+    },
+    '7': {
+      title: 'Dynamic Programming',
+      observations: 'DP algorithms can dramatically reduce time complexity by storing results of subproblems, trading space for time. Identifying the optimal substructure is the key challenge.',
+      conclusions: 'Dynamic Programming remains one of the most powerful techniques for optimization problems. Its applications span across various domains including bioinformatics, economics, and shortest path problems.',
+      graphs: [
+        {
+          title: 'Optimization Comparison',
+          description: 'Comparing DP approach with recursive and iterative approaches',
+          imageSrc: '/path/to/dp-optimization.jpg' // Custom image path
+        },
+        {
+          title: 'Memory-Time Tradeoff',
+          description: 'Balancing memory usage against computational efficiency',
+          imageSrc: '/path/to/dp-tradeoff.jpg' // Custom image path
+        }
+      ]
+    }
+  };
+  
+  // Function to open modal with algorithm content
+  function openAlgorithmModal(algorithmId) {
+    const algorithm = algorithmData[algorithmId];
     
-    <footer>
-        <p>Simulation Dashboard &copy; 2025 | All rights reserved</p>
-    </footer>
+    if (!algorithm) {
+      console.error('Algorithm data not found for ID:', algorithmId);
+      return;
+    }
     
-    <script>
-        // JavaScript to handle the GIF play/pause functionality and result toggles
-        document.addEventListener('DOMContentLoaded', function() {
-            // Handle play buttons for GIFs
-            const playButtons = document.querySelectorAll('.play-button');
+    // Create modal content
+    const modalHTML = `
+      <div class="modal-header">
+        <h3>${algorithm.title}</h3>
+      </div>
+      
+      <div class="graphs-container">
+        ${algorithm.graphs.map((graph, index) => `
+          <div class="graph-wrapper" id="graph-${algorithmId}-${index}">
+            <!-- Using custom images instead of placeholders -->
+            <img src="${graph.imageSrc || '/api/placeholder/400/250'}" alt="${graph.title}" style="width: 100%; border-radius: 6px;">
+          </div>
+        `).join('')}
+      </div>
+      
+      <div class="modal-section">
+        <h4>Observations</h4>
+        <p>${algorithm.observations}</p>
+      </div>
+      
+      <div class="modal-section">
+        <h4>Conclusions</h4>
+        <p>${algorithm.conclusions}</p>
+      </div>
+    `;
+    
+    // Set modal content
+    modalContent.innerHTML = modalHTML;
+    
+    // Show modal
+    modalOverlay.classList.add('active');
+    document.body.style.overflow = 'hidden'; // Prevent background scrolling
+  }
+  
+  // Function to close modal
+  function closeModal() {
+    modalOverlay.classList.remove('active');
+    document.body.style.overflow = ''; // Restore scrolling
+    
+    // Clear modal content after animation
+    setTimeout(() => {
+      modalContent.innerHTML = '';
+    }, 300);
+  }
+  
+  // Add click event listeners to algorithm cards
+  algorithmCards.forEach(card => {
+    card.addEventListener('click', function() {
+      const algorithmId = this.getAttribute('data-algorithm');
+      openAlgorithmModal(algorithmId);
+    });
+  });
+  
+  // Close modal when clicking the close button
+  modalClose.addEventListener('click', closeModal);
+  
+  // Close modal when clicking outside the modal content
+  modalOverlay.addEventListener('click', function(e) {
+    if (e.target === modalOverlay) {
+      closeModal();
+    }
+  });
+  
+  // Close modal on escape key press
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && modalOverlay.classList.contains('active')) {
+      closeModal();
+    }
+  });
+});
+</script>
+    
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+            // Get all simulation cards and setup navigation
+            const simulationsCarousel = document.querySelector('.simulations-carousel');
+            const simulationCards = document.querySelectorAll('.simulation-card');
+            const prevButton = document.getElementById('prev-btn');
+            const nextButton = document.getElementById('next-btn');
             
+            // Initialize variables
+            let currentIndex = 0;
+            const totalCards = simulationCards.length;
+            
+            // Function to update the carousel position
+            function updateCarousel() {
+                simulationsCarousel.style.transform = `translateX(-${currentIndex * 100}%)`;
+                
+                // Disable/enable navigation buttons
+                prevButton.disabled = currentIndex === 0;
+                prevButton.style.opacity = currentIndex === 0 ? '0.5' : '1';
+                nextButton.disabled = currentIndex === totalCards - 1;
+                nextButton.style.opacity = currentIndex === totalCards - 1 ? '0.5' : '1';
+            }
+            
+            // Handle navigation button clicks
+            prevButton.addEventListener('click', function() {
+                if (currentIndex > 0) {
+                    currentIndex--;
+                    updateCarousel();
+                }
+            });
+            
+            nextButton.addEventListener('click', function() {
+                if (currentIndex < totalCards - 1) {
+                    currentIndex++;
+                    updateCarousel();
+                }
+            });
+            
+            // Initialize the carousel
+            updateCarousel();
+            
+            // Handle play buttons for GIFs - Fixed functionality
+            const playButtons = document.querySelectorAll('.play-button');
             playButtons.forEach(button => {
                 button.addEventListener('click', function() {
                     const mediaContainer = this.closest('.simulation-media');
@@ -740,15 +1834,15 @@
                     const playIcon = this.querySelector('.play-icon');
                     const pauseIcon = this.querySelector('.pause-icon');
                     
-                    // Toggle GIF visibility
-                    if (gif.style.display === 'block') {
-                        // Pause/hide GIF
+                    // Fixed toggle logic
+                    if (getComputedStyle(gif).display === 'block') {
+                        // Currently showing GIF, switch to placeholder
                         gif.style.display = 'none';
                         placeholder.style.display = 'flex';
                         playIcon.style.display = 'block';
                         pauseIcon.style.display = 'none';
                     } else {
-                        // Show/play GIF
+                        // Currently showing placeholder, switch to GIF
                         gif.style.display = 'block';
                         placeholder.style.display = 'none';
                         playIcon.style.display = 'none';
@@ -757,25 +1851,82 @@
                 });
             });
             
-            // Handle results toggle buttons
-            const toggleButtons = document.querySelectorAll('.results-toggle');
-            
-            toggleButtons.forEach(button => {
+            // Handle graph toggle buttons
+            const graphToggleButtons = document.querySelectorAll('.graph-toggle');
+            graphToggleButtons.forEach(button => {
                 button.addEventListener('click', function() {
-                    const resultsContainer = this.nextElementSibling;
+                    // Find the parent card
+                    const card = this.closest('.simulation-card');
                     
-                    // Toggle results visibility
-                    if (resultsContainer.classList.contains('show')) {
-                        resultsContainer.classList.remove('show');
-                        this.textContent = 'Show Results';
-                        this.classList.remove('active');
-                    } else {
-                        resultsContainer.classList.add('show');
-                        this.textContent = 'Hide Results';
-                        this.classList.add('active');
+                    // Remove active class from all toggle buttons in this card
+                    const togglesInCard = card.querySelectorAll('.graph-toggle');
+                    togglesInCard.forEach(toggle => toggle.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    // Get the graph type from data attribute
+                    const graphType = this.getAttribute('data-graph');
+                    
+                    // Hide all graphs in this card
+                    const graphsInCard = card.querySelectorAll('.graph');
+                    graphsInCard.forEach(graph => graph.classList.remove('active'));
+                    
+                    // Show the selected graph
+                    const selectedGraph = card.querySelector(`.${graphType}-graph`);
+                    if (selectedGraph) {
+                        selectedGraph.classList.add('active');
                     }
                 });
             });
+            
+            // Keyboard navigation
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'ArrowLeft') {
+                    if (currentIndex > 0) {
+                        currentIndex--;
+                        updateCarousel();
+                    }
+                } else if (e.key === 'ArrowRight') {
+                    if (currentIndex < totalCards - 1) {
+                        currentIndex++;
+                        updateCarousel();
+                    }
+                }
+            });
+            
+            // Handle touch events for swiping on mobile
+            let touchStartX = 0;
+            let touchEndX = 0;
+            
+            simulationsCarousel.addEventListener('touchstart', function(e) {
+                touchStartX = e.changedTouches[0].screenX;
+            }, false);
+            
+            simulationsCarousel.addEventListener('touchend', function(e) {
+                touchEndX = e.changedTouches[0].screenX;
+                handleSwipe();
+            }, false);
+            
+            function handleSwipe() {
+                const swipeThreshold = 50; // Minimum distance required for a swipe
+                
+                if (touchEndX < touchStartX - swipeThreshold) {
+                    // Swipe left - go to next slide
+                    if (currentIndex < totalCards - 1) {
+                        currentIndex++;
+                        updateCarousel();
+                    }
+                }
+                
+                if (touchEndX > touchStartX + swipeThreshold) {
+                    // Swipe right - go to previous slide
+                    if (currentIndex > 0) {
+                        currentIndex--;
+                        updateCarousel();
+                    }
+                }
+            }
         });
     </script>
 </body>
